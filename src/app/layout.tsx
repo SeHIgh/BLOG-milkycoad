@@ -4,6 +4,7 @@ import ClientLayout from "@/components/basic/ClientLayout";
 import Header from "@/components/main/Header";
 import Sidebar from "@/components/main/Sidebar";
 import CurrentRoute from "@/components/main/CurrentRoute";
+import { ThemeProvider } from "@/components/basic/themeProvider";
 
 export const metadata: Metadata = {
     title: "미리내를 잇는 코드",
@@ -16,26 +17,28 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="ko">
-            <body
-                className="h-screen flex flex-col p-4 font-galmuri9 antialiased"
-                suppressHydrationWarning={true}
-            >
-                <ClientLayout>
-                    <div className="w-full h-full flex-1 flex flex-col">
-                        <main className="dark:text-invert bg-gray-600 border-8 border-gray-600 rounded-t-xl overflow-auto flex flex-row justify-between gap-2 flex-1">
+        <html lang="ko" suppressHydrationWarning>
+            <body className="min-h-screen max-h-screen w-full flex flex-col justify-center p-2 font-galmuri9 antialiased overflow-x-hidden">
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <ClientLayout>
+                        <main className="w-full dark:text-invert bg-gray-600 border-8 border-gray-600 rounded-t-xl overflow-auto flex flex-row justify-between gap-2 flex-1">
                             <Sidebar />
                             <section className="flex flex-col flex-1 gap-2 overflow-hidden">
                                 <Header />
                                 {/* Rendering 될 내용 */}
-                                <div className="flex-1 bg-background border-4 border-border overflow-y-auto">
+                                <div className="w-full flex-1 bg-background border-4 border-border overflow-y-auto">
                                     {children}
                                 </div>
                                 <CurrentRoute />
                             </section>
                         </main>
-                    </div>
-                </ClientLayout>
+                    </ClientLayout>
+                </ThemeProvider>
             </body>
         </html>
     );
