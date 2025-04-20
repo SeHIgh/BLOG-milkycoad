@@ -1,8 +1,9 @@
 "use client";
 
-import { ChevronRight, Folder, Home } from "lucide-react";
+import { ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { pinnedIconMap, tagIconMap } from "../IconMap";
 
 export default function CurrentRoute() {
     const pathname = usePathname();
@@ -11,6 +12,15 @@ export default function CurrentRoute() {
     // 누적 경로를 만들기 위한 유틸
     const getHref = (idx: number) => {
         return "/" + segments.slice(0, idx + 1).join("/");
+    };
+
+    // 세그먼트명에 맞는 아이콘 반환
+    const getIcon = (seg: string) => {
+        // 소문자 처리, 띄어쓰기 등 normalization 필요할 수 있음
+        const key = seg.toLowerCase();
+        const Icon =
+            pinnedIconMap[key] || tagIconMap[key] || pinnedIconMap["default"];
+        return <Icon className="w-4 h-4" />;
     };
 
     return (
@@ -34,7 +44,7 @@ export default function CurrentRoute() {
                             href={getHref(idx)}
                             className="flex flex-row items-center gap-1 hover:underline"
                         >
-                            <Folder className="w-4 h-4" />
+                            {getIcon(seg)}
                             <span className="text-xs text-foreground">
                                 {seg}
                             </span>

@@ -1,7 +1,8 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Moon, Sun } from "lucide-react";
 
 export default function Header() {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -27,30 +28,44 @@ export default function Header() {
     };
 
     return (
-        // 헤더 높이 25rem(100px), 상단 고정, 패딩 2.5
-        // 배경 투명도 10%
-        <header className="bg-background w-full h-10 p-1 flex flex-row justify-between items-center">
-            <div>
+        <header className="bg-background w-full h-10 p-1 px-2 flex flex-row justify-between items-center">
+            <div className="flex flex-row items-center gap-2">
+                <div className="flex flex-row items-center gap-2">
+                    <Image
+                        src="/SeHi_Profile_Blue_BG_2x.png"
+                        width={32}
+                        height={32}
+                        className="rounded-lg border-2 border-foreground"
+                        alt="profile_img"
+                    />
+                    <h3>SeHi</h3>
+                </div>
+
+                {/* <p>: 그저 그렇지 않은 사람</p> */}
+                <p>
+                    : 💫 흐르는 정보와 아름다운 인터페이스를 은하수 처럼 잇는
+                    개발자
+                </p>
             </div>
             <div className="flex flex-row justify-between gap-2 item-center">
-                {/* <nav aria-label="Tabs" className="h-full flex items-center">
-                    <ul className="flex flex-row justify-center">
-                        <li id="tab_id">
-                            <Link href="/docs">Docs</Link>
-                        </li>
-                        <li id="tab_id">
-                            <Link href="/blog">Blog</Link>
-                        </li>
-                        <li id="tab_id">
-                            <Link href="/update">Update</Link>
-                        </li>
-                    </ul>
-                </nav> */}
-                <button className="w-fit" onClick={toggleDarkMode}>
-                    {isDarkMode ? (
-                        <Sun strokeWidth="3" className="w-7 h-7" />
+                <button
+                    className="flex flex-row justify-between items-center hover:scale-110"
+                    onClick={toggleDarkMode}
+                >
+                    {!isDarkMode ? (
+                        <Sun
+                            strokeWidth="2"
+                            color="var(--foreground)"
+                            fill="var(--foreground)"
+                            className="w-7 h-7"
+                        />
                     ) : (
-                        <Moon strokeWidth="3" className="w-7 h-7" />
+                        <Moon
+                            strokeWidth="2"
+                            color="var(--foreground)"
+                            fill="var(--foreground)"
+                            className="w-7 h-7"
+                        />
                     )}
                 </button>
             </div>
