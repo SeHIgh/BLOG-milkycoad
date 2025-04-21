@@ -33,11 +33,11 @@ export default function Sidebar() {
         <aside
             className={`p-2 bg-background transition-[width] duration-300 ease-in-out overflow-x-hidden overflow-y-auto ${
                 isOpen ? "w-48" : "w-14"
-            } flex flex-col justify-between`}
+            } flex flex-col justify-between h-full`}
         >
             <div className="flex flex-col justify-between gap-5">
                 <div className="flex justify-end">
-                    <button className="mr-2" onClick={() => setIsOpen(!isOpen)}>
+                    <button className="mr-2 hidden md:block" onClick={() => setIsOpen(!isOpen)}>
                         <ArrowLeftIcon
                             className={cn(
                                 isOpen ? "" : "-rotate-180",

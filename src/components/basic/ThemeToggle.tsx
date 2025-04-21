@@ -44,7 +44,7 @@ export default function ThemeToggle() {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="rounded-xl bg-gray-200 px-4 py-2 text-sm dark:bg-gray-800 dark:text-white transition-colors"
+            className="rounded-xl px-4 py-2 text-sm transition-colors"
         >
             {isDark ? (
                 <Sun
