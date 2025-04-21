@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ClientLayout from "@/components/basic/ClientLayout";
 import Header from "@/components/main/Header";
-import Sidebar from "@/components/main/Sidebar";
 import CurrentRoute from "@/components/main/CurrentRoute";
 import { ThemeProvider } from "@/components/basic/themeProvider";
+import ResponsiveSidebar from "@/components/main/Responsive";
 
 export const metadata: Metadata = {
     title: "미리내를 잇는 코드",
@@ -27,7 +27,7 @@ export default function RootLayout({
                 >
                     <ClientLayout>
                         <main className="w-full dark:text-invert bg-gray-600 border-8 border-gray-600 rounded-t-xl overflow-auto flex flex-row justify-between gap-2 flex-1">
-                            <Sidebar />
+                            <ResponsiveSidebar />
                             <section className="flex flex-col flex-1 gap-2 overflow-hidden">
                                 <Header />
                                 {/* Rendering 될 내용 */}
