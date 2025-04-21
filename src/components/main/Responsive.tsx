@@ -1,13 +1,22 @@
 "use client";
 
 import { Menu, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function ResponsiveSidebar() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    // 페이지 이동 시 사이드바가 자동으로 닫히도록 설정
+    // (사이드 바를 통해 페이지 이동 시 바로 해당 페이지 콘텐츠를 보여주기 위함)
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [pathname]); // 페이지 이동 시 변경되는 pathname을 감지하여 사이드바 닫힘
 
     return (
         <>
