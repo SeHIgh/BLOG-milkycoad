@@ -6,6 +6,7 @@ import {
 import { ChevronDown, Hash, Pin } from "lucide-react";
 import { cn } from "@/lib/utils"; // 유틸리티 함수가 필요하다면 import
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type IconComponent = React.ComponentType<{ className?: string }>;
 
@@ -13,7 +14,7 @@ type SidebarNavCollapsibleProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     title: string;
-    categories: { title: string, url?: string }[];
+    categories: { title: string; url?: string }[];
     categoryIconMap: Record<string, IconComponent>;
     isOpen: boolean; // SideList에 전달할 용도
     className?: string;
@@ -26,23 +27,46 @@ interface SideListProps {
     url?: string;
 }
 
-export const SideList: React.FC<SideListProps> = ({ isOpen, title, Icon, url }) => {
+export const SideList: React.FC<SideListProps> = ({
+    isOpen,
+    title,
+    Icon,
+    url,
+}) => {
+    const pathname = usePathname();
+
     return (
         // 접을 때 아이콘이 이동하는 현상 발생
         // 아이콘이 고정 되게 하기 위해 수정
         <li
             title={title}
-            className="h-8 pl-2.5 flex justify-start items-center rounded-md transition-all duration-300 ease-in-out group cursor-pointer"
+            className={cn(
+                "h-8 pl-2.5 flex justify-start items-center rounded-md transition-all duration-300 ease-in-out group cursor-pointer",
+                url === pathname ? "bg-accent/40 inset-ring-2 inset-ring-border rounded-none" : "",
+            )}
         >
             <Link
                 href={url || "/"}
                 passHref
-                className="flex justify-center items-center"
+                className={cn(
+                    "flex-1 flex justify-start items-center"
+                )}
             >
                 {/* 아이콘 값이 없을 경우 기본 아이콘으로 folder 사용 */}
-                <Icon className="w-5 h-5 opacity-100 group-hover:opacity-60" />
+                <Icon
+                    className={cn(
+                        "w-5 h-5 opacity-100 group-hover:opacity-60"
+                        // "group-hover:stroke-blue-200",
+                        // url === pathname ? "stroke-blue-200" : ""
+                    )}
+                />
                 {isOpen && (
-                    <span className="ml-2 opacity-100 group-hover:opacity-60">
+                    <span
+                        className={cn(
+                            "ml-2 opacity-100 group-hover:text-blue-200",
+                            url === pathname ? "text-blue-200" : ""
+                        )}
+                    >
                         {title.toUpperCase()}
                     </span>
                 )}
@@ -67,13 +91,13 @@ export function SidebarNavCollapsible({
             onOpenChange={onOpenChange}
             className={className}
         >
-            <div className="flex flex-row items-center justify-between pe-2.5 group">
-                <div className="px-3 py-1 flex flex-row justify-start gap-1 mb-1">
-                    {
-                        title === "Pinned" ? 
-                        <Pin className="w-4 h-4 rotate-325" fill="#A70100" />:
+            <div className="flex flex-row items-center justify-between pe-2.5 group mb-1">
+                <div className="px-3 py-1 flex flex-row justify-start items-center gap-1">
+                    {title === "Pinned" ? (
+                        <Pin className="w-4 h-4 rotate-325" fill="#A70100" />
+                    ) : (
                         <Hash className="w-4 h-4" />
-                    }
+                    )}
                     {isOpen && (
                         <h3 className="text-xs font-bold text-muted-foreground">
                             {title}
