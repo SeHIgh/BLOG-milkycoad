@@ -1,14 +1,15 @@
 "use client";
 
-import { Menu, XIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { XIcon } from "lucide-react";
+import { useEffect } from "react";
 import Sidebar from "./Sidebar";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useSidebarStore } from "@/stores/useSidebarStore";
 
 export default function ResponsiveSidebar() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    // const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { sidebarOpen, setSidebarOpen } = useSidebarStore();
 
     // 페이지 이동 시 사이드바가 자동으로 닫히도록 설정
     // (사이드 바를 통해 페이지 이동 시 바로 해당 페이지 콘텐츠를 보여주기 위함)
@@ -20,16 +21,6 @@ export default function ResponsiveSidebar() {
 
     return (
         <>
-            {/* 모바일: 상단 왼쪽 토글 버튼 */}
-            <Button
-                variant="ghost"
-                className="fixed top-4.5 right-16 md:hidden rounded-xl px-4 py-2 text-sm transition-colors"
-                onClick={() => setSidebarOpen(true)}
-                aria-label="Open Sidebar"
-            >
-                <Menu className="h-[1.2rem] w-[1.2rem]" />
-            </Button>
-
             {/* PC/태블릿: 항상 보이는 사이드 바 */}
             <div className="w-fit hidden md:block">
                 <Sidebar />
@@ -37,7 +28,7 @@ export default function ResponsiveSidebar() {
 
             {/* 모바일: 오버레이 사이드바 */}
             {sidebarOpen && (
-                <div className="fixed inset-0 z-40 flex">
+                <div className="fixed inset-0 z-40 flex md:hidden">
                     {/* 오버레이 배경 */}
                     <div
                         className="fixed inset-0 bg-black/40"
@@ -47,18 +38,18 @@ export default function ResponsiveSidebar() {
                     {/* 사이드바 패널 */}
                     <div
                         className={cn(
-                            "relative z-50 w-48 max-w-full pt-4 bg-background shadow-lg h-full animate-in slide-in-from-left duration-300"
+                            "relative z-50 w-50 max-w-full bg-background shadow-lg h-full animate-in slide-in-from-left duration-300 border-4 border-foreground"
                         )}
                     >
                         {/* 닫기 버튼 */}
                         <button
-                            className="absolute top-4 right-4 hover:opacity-60"
+                            className="absolute top-4 right-4 hover:opacity-60 group"
                             onClick={() => setSidebarOpen(false)}
                             aria-label="Close Sidebar"
                         >
-                            <XIcon className="w-6 h-6" />
+                            <XIcon className="w-6 h-6 group-hover:stroke-muted-foreground group-hover:scale-110" />
                         </button>
-                        <Sidebar />
+                        <Sidebar className="md:p-2 pt-4 rounded-none md:rounded-tl-lg" />
                     </div>
                 </div>
             )}
