@@ -5,10 +5,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Home() {
     return (
         <div className="w-full h-full p-4 text-center flex flex-col justify-between">
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+            <h1 className="text-2xl md:text-3xl font-extrabold mb-2">
                 미리내를 잇는 코드
             </h1>
-            <h2 className="text-3xl text-accent-foreground">
+            <h2 className="text-xl md:text-2xl text-accent-foreground">
                 SeHi&apos;s Tech Blog
             </h2>
 

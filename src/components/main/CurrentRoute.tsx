@@ -4,6 +4,7 @@ import { ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { pinnedIconMap, tagIconMap } from "../IconMap";
+import { cn } from "@/lib/utils";
 
 export default function CurrentRoute() {
     const pathname = usePathname();
@@ -24,7 +25,13 @@ export default function CurrentRoute() {
     };
 
     return (
-        <div className="p-2 bg-background">
+        <div
+            className={cn(
+                // "p-2 bg-background",
+                // "border-4 border-border",
+                // "inset-ring-4 inset-ring-border"
+            )}
+        >
             <ul className="flex flex-row items-center gap-2">
                 {/* 항상 홈 아이템 먼저 */}
                 <li className="w-fit h-fit">
