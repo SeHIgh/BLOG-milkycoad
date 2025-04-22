@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ClientLayout from "@/components/basic/ClientLayout";
 import Header from "@/components/main/Header";
-import CurrentRoute from "@/components/main/CurrentRoute";
+// import CurrentRoute from "@/components/main/CurrentRoute";
 import { ThemeProvider } from "@/components/basic/themeProvider";
 import ResponsiveSidebar from "@/components/main/Responsive";
+import { cn } from "@/lib/utils";
+import Footer from "@/components/main/Footer";
 
 export const metadata: Metadata = {
     title: "미리내를 잇는 코드",
@@ -18,7 +20,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ko" suppressHydrationWarning>
-            <body className="min-h-dvh max-h-dvh w-full flex flex-col justify-center p-2 font-galmuri9 antialiased overflow-x-hidden">
+            <body className="min-h-dvh max-h-dvh w-full flex flex-col justify-center p-1 font-galmuri9 antialiased overflow-x-hidden bg-background">
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -26,15 +28,23 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <ClientLayout>
-                        <main className="w-full dark:text-invert bg-gray-600 border-8 border-gray-600 rounded-t-xl overflow-auto flex flex-row justify-between gap-2 flex-1">
+                        {/* (임시) border-4 */}
+                        <main className="w-full dark:text-invert bg-foreground border-4 border-foreground rounded-t-xl overflow-auto flex flex-row justify-between gap-1 flex-1">
                             <ResponsiveSidebar />
-                            <section className="flex flex-col flex-1 gap-2 overflow-hidden">
+                            <section className="flex flex-col flex-1 gap-1 overflow-hidden">
                                 <Header />
                                 {/* Rendering 될 내용 */}
-                                <div className="w-full flex-1 bg-background border-4 border-border overflow-y-auto">
+                                <div
+                                    className={cn(
+                                        "w-full flex-1 bg-background overflow-y-auto",
+                                        // "border-4 border-border",
+                                        "inset-ring-4 inset-ring-border"
+                                    )}
+                                >
                                     {children}
                                 </div>
-                                <CurrentRoute />
+                                {/* <CurrentRoute /> */}
+                                <Footer />
                             </section>
                         </main>
                     </ClientLayout>
