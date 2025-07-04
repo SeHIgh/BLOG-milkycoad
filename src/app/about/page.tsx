@@ -89,7 +89,7 @@ export default function AboutPage() {
     return (
         <div className="w-full mx-auto p-4 h-full overflow-y-scroll">
             <img
-                className="w-full mb-6"
+                className="w-full mb-6 border-2 border-foreground rounded-lg"
                 src="/SeHi_Banner_Blue_BG.png"
                 alt="SeHi_Banner_Blue_BG"
             />
@@ -98,19 +98,21 @@ export default function AboutPage() {
                 💫 흐르는 정보와 아름다운 인터페이스를 은하수처럼 잇는 개발자
             </h3>
 
-            <div className="flex flex-col md:flex-row justify-center gap-4 my-6">
-                <img
-                    src="https://github-readme-stats.vercel.app/api?username=SeHIgh&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc"
-                    alt="SeHIgh's GitHub Stats"
-                    className="rounded-xl"
-                    height={180}
-                />
-                <img
-                    src="https://github-readme-stats.vercel.app/api/top-langs?username=SeHIgh&layout=compact&langs_count=8&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc"
-                    alt="SeHIgh's Top Langs"
-                    className="rounded-xl"
-                    height={180}
-                />
+            <div className="flex flex-col md:flex-row justify-center items-center gap-4 my-6">
+                <div className="border-2 border-foreground rounded-lg overflow-hidden h-fit w-fit">
+                    <img
+                        src="https://github-readme-stats.vercel.app/api?username=SeHIgh&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc"
+                        alt="SeHIgh's GitHub Stats"
+                        height={180}
+                    />
+                </div>
+                <div className="border-2 border-foreground rounded-lg overflow-hidden h-fit w-fit">
+                    <img
+                        src="https://github-readme-stats.vercel.app/api/top-langs?username=SeHIgh&layout=compact&langs_count=8&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc"
+                        alt="SeHIgh's Top Langs"
+                        height={180}
+                    />
+                </div>
             </div>
             <hr />
             <section className="my-8">
