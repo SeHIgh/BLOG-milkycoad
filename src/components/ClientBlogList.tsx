@@ -11,6 +11,8 @@ import { BlogPost } from '@/lib/notion';
 import { CONTENTS_PATH } from '@/lib/contents';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { TAG_COLOR } from '@/lib/tags';
+import { Calendar, Hash } from 'lucide-react';
 
 interface ClientBlogListProps {
   publishedOnly?: boolean;
@@ -77,66 +79,95 @@ function BlogPostCard({ post }: { post: BlogPost }) {
         className={cn(
           'h-full transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]',
           'p-0 pb-3 overflow-hidden',
+          'gap-5',
         )}
       >
-        <div className='aspect-video overflow-hidden rounded-t-lg relative'>
+        <div className='relative w-full aspect-[16/9] overflow-hidden group'>
+          {/* 커버 이미지 */}
+          {/* 커버 이미지가 있다면, 그대로 렌더링, 없다면 기본 이미지 렌더링 */}
           <Image
             src={post.coverImage ? post.coverImage : CONTENTS_PATH.post.banner.main}
             alt={post.title}
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-105'
+            className='object-cover transition-transform duration-300 group-hover:scale-105'
           />
         </div>
-        <CardHeader>
-          <CardTitle className='line-clamp-2 group-hover:text-blue-600 transition-colors'>
+        <CardHeader className='flex-1'>
+          {/* 제목 */}
+          <CardTitle className='line-clamp-2 group-hover:text-sidebar-accent-foreground transition-colors'>
             {post.title}
           </CardTitle>
+          {/* 요약, 설명 */}
           {post.summary && (
             <CardDescription className='line-clamp-3'>{post.summary}</CardDescription>
           )}
         </CardHeader>
         <CardContent>
-          <div className='flex items-center justify-between text-sm text-muted-foreground'>
-            <time dateTime={post.createdAt}>
-              {format(new Date(post.createdAt), 'yyyy년 MM월 dd일', {
-                locale: ko,
-              })}
-            </time>
-            {(post.mainTags.length > 0 || post.subTags.length > 0) && (
-              <div className='space-y-1'>
-                {post.mainTags.length > 0 && (
-                  <div className='flex gap-1 flex-wrap'>
-                    {post.mainTags.slice(0, 2).map((tag) => (
-                      <span
-                        key={tag}
-                        className='px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full text-xs font-medium'
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                    {post.mainTags.length > 2 && (
-                      <span className='text-xs'>+{post.mainTags.length - 2}</span>
-                    )}
-                  </div>
-                )}
-                {post.subTags.length > 0 && (
-                  <div className='flex gap-1 flex-wrap'>
-                    {post.subTags.slice(0, 2).map((tag) => (
-                      <span
-                        key={tag}
-                        className='px-2 py-1 bg-secondary text-secondary-foreground rounded-full text-xs'
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                    {post.subTags.length > 2 && (
-                      <span className='text-xs'>+{post.subTags.length - 2}</span>
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
+          <div className='grid grid-cols-1 gap-2 text-sm text-muted-foreground pb-1'>
+            {/* 시간 */}
+            {/* <div className='flex items-center gap-2'>
+              <Calendar className='w-4 h-4' />
+              <time dateTime={post.createdAt}>
+                {format(new Date(post.createdAt), 'yy년 MM월 dd일 HH:MM', {
+                  locale: ko,
+                })}
+              </time>
+            </div> */}
+            {/* 시간 */}
+            <div className='flex items-center gap-2'>
+              <Calendar className='w-4 h-4' />
+              <time dateTime={post.lastEditedAt}>
+                {format(new Date(post.lastEditedAt), 'yy년 M월 d일 HH:MM', {
+                  locale: ko,
+                })}
+              </time>
+            </div>
+            {/* 태그 */}
+            <div className='flex flex-row items-center gap-2'>
+              <Hash className='w-4 h-4' />
+              {(post.mainTags.length > 0 || post.subTags.length > 0) && (
+                <div className='flex flex-row flex-wrap gap-1'>
+                  {post.mainTags.length > 0 && (
+                    <div className='flex gap-1 flex-wrap'>
+                      {post.mainTags.slice(0, 2).map((tag) => (
+                        <span
+                          key={tag}
+                          className='px-2 py-1 bg-secondary text-accent-foreground dark:text-white rounded-md text-xs font-bold'
+                          style={{
+                            backgroundColor:
+                              TAG_COLOR.main_tags[tag] ?? TAG_COLOR.main_tags.default,
+                          }}
+                        >
+                          {tag.toUpperCase()}
+                        </span>
+                      ))}
+                      {post.mainTags.length > 2 && (
+                        <span className='text-xs'>+{post.mainTags.length - 2}</span>
+                      )}
+                    </div>
+                  )}
+                  {post.subTags.length > 0 && (
+                    <div className='flex gap-1 flex-wrap'>
+                      {post.subTags.slice(0, 2).map((tag) => (
+                        <span
+                          key={tag}
+                          className='px-2 py-1 bg-secondary text-accent-foreground dark:text-white rounded-md text-xs font-bold'
+                          style={{
+                            backgroundColor: TAG_COLOR.sub_tags[tag] ?? TAG_COLOR.main_tags.default,
+                          }}
+                        >
+                          {tag.toUpperCase()}
+                        </span>
+                      ))}
+                      {post.subTags.length > 2 && (
+                        <span className='text-xs'>+{post.subTags.length - 2}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -144,23 +175,42 @@ function BlogPostCard({ post }: { post: BlogPost }) {
   );
 }
 
+// * 로딩 스캘레톤 화면
 function BlogListSkeleton() {
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {[...Array(6)].map((_, i) => (
-        <Card key={i} className='h-full'>
-          <Skeleton className='aspect-video rounded-t-lg' />
-          <CardHeader>
-            <Skeleton className='h-6 w-3/4' />
-            <Skeleton className='h-4 w-full' />
-            <Skeleton className='h-4 w-2/3' />
+        <Card
+          key={i}
+          className='h-full transition-all duration-300 group-hover:scale-[1.02] p-0 pb-3 overflow-hidden gap-5'
+        >
+          {/* 커버 이미지 영역 */}
+          <div className='relative w-full aspect-[16/9] overflow-hidden'>
+            <Skeleton className='absolute inset-0 w-full h-full object-cover' />
+          </div>
+          <CardHeader className='flex-1'>
+            <Skeleton className='h-6 w-3/4 mb-2' /> {/* 제목 */}
+            <Skeleton className='h-4 w-full mb-1' /> {/* 요약 1 */}
+            <Skeleton className='h-4 w-2/3' /> {/* 요약 2 */}
           </CardHeader>
           <CardContent>
-            <div className='flex justify-between'>
+            <div className='flex items-start justify-between text-sm'>
+              {/* 날짜 */}
               <Skeleton className='h-4 w-24' />
-              <div className='flex gap-1'>
-                <Skeleton className='h-6 w-12 rounded-full' />
-                <Skeleton className='h-6 w-16 rounded-full' />
+              {/* 태그 영역 */}
+              <div className='space-y-1'>
+                <div className='flex gap-1 flex-wrap mb-1'>
+                  <Skeleton className='h-6 w-12 rounded-full' />
+                  <Skeleton className='h-6 w-12 rounded-full' />
+                  {/* +N 태그 표시용 */}
+                  <Skeleton className='h-6 w-8 rounded-full' />
+                </div>
+                <div className='flex gap-1 flex-wrap'>
+                  <Skeleton className='h-6 w-10 rounded-full' />
+                  <Skeleton className='h-6 w-10 rounded-full' />
+                  {/* +N 태그 표시용 */}
+                  <Skeleton className='h-6 w-8 rounded-full' />
+                </div>
               </div>
             </div>
           </CardContent>
