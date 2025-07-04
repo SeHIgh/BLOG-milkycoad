@@ -2,15 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getBlogPostBySlug } from '@/lib/notion';
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    // await 제거하고 안전한 slug 처리
-    let slug = params.slug;
+    // params를 await로 처리
+    const { slug: rawSlug } = await params;
+    let slug = rawSlug;
 
     // 안전한 디코딩 처리
     try {
