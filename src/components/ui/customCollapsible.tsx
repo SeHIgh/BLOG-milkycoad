@@ -42,7 +42,10 @@ export const SideList: React.FC<SideListProps> = ({
             title={title}
             className={cn(
                 "h-8 pl-2.5 flex justify-start items-center rounded-md transition-all duration-300 ease-in-out group cursor-pointer",
-                url === pathname ? "bg-accent/40 inset-ring-2 inset-ring-border rounded-none" : "",
+                // url === pathname ? "inset-ring-2 inset-ring-border rounded-none" : "",
+                // url === pathname ? "inset-ring-2 inset-ring-sidebar-ring bg-blue-200/40 dark:bg-blue-300/40 rounded-none" : "",
+                url === pathname ? "bg-sidebar-accent-foreground inset-ring-2 inset-ring-foreground inset-shadow-sm inset-shadow-border rounded-none" : "",
+                // url === pathname ? "bg-sidebar-accent-foreground inset-shadow-sm inset-shadow-foreground rounded-none" : "",
             )}
         >
             <Link
@@ -64,7 +67,9 @@ export const SideList: React.FC<SideListProps> = ({
                     <span
                         className={cn(
                             "ml-2 opacity-100 group-hover:text-blue-200",
-                            url === pathname ? "text-blue-200" : ""
+                            "ml-2 opacity-100 group-hover:text-blue-200",
+                            // url === pathname ? "text-blue-200" : "",
+                            // url === pathname ? "text-sidebar-accent-foreground" : ""
                         )}
                     >
                         {title.toUpperCase()}
