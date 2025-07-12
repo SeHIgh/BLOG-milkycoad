@@ -208,8 +208,12 @@
     --sidebar-primary-foreground: #194185;
     --sidebar-accent: #a5b4fc; /* indigo-200 */
     --sidebar-accent-foreground: #27364b;
+    --sidebar-accent-foreground: var(--color-indigo-300);
+    --sidebar-accent-foreground: var(--color-blue-200);
     --sidebar-border: #e2e8f0;
     --sidebar-ring: #7dd3fc;
+    --sidebar-ring: var(--color-indigo-300);
+    --sidebar-ring: var(--color-blue-200);
 }
 
 .dark {
@@ -254,8 +258,11 @@
     --sidebar-primary-foreground: #f5f7fa;
     --sidebar-accent: #6366f1;
     --sidebar-accent-foreground: #f5f7fa;
+    --sidebar-accent-foreground: var(--color-indigo-300);
+    --sidebar-accent-foreground: var(--color-blue-200);
     --sidebar-border: #334155;
     --sidebar-ring: #38bdf8;
+    --sidebar-ring: var(--color-blue-200);
 }
 
 @layer base {
