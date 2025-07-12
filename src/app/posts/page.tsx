@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
-import ClientBlogList from '@/components/ClientBlogList';
+import ClientBlogList from '@/components/posts/ClientBlogList';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { pinnedIconMap } from '@/components/IconMap';
+import { POSTS_TITLE } from '@/components/common/pageTitleData';
 
 // * 로딩 스켈레톤 컴포넌트
 function BlogPostsSkeleton() {
@@ -38,9 +39,9 @@ export default function PostsPage() {
       <div className='mb-8'>
         <div className='flex gap-2 items-center mb-4'>
           <pinnedIconMap.posts className='w-8 h-8' />
-          <h1 className='text-3xl font-bold'>POSTS</h1>
+          <h1 className='text-3xl font-bold'>{POSTS_TITLE.title}</h1>
         </div>
-        <p className='text-muted-foreground ml-2'>개발과 일상에 대한 생각들을 기록합니다.</p>
+        <p className='text-muted-foreground ml-2'>{POSTS_TITLE.subtitle}</p>
       </div>
 
       {/* 데이터 준비 이전 까지 fallback UI(스켈레톤) 지정*/}

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Calendar, Tag } from 'lucide-react';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import NotionRenderer from '@/components/NotionRenderer';
+import NotionRenderer from '@/components/posts/NotionRenderer';
 import { getBlogPostBySlug } from '@/lib/notion';
 
 interface BlogPostPageProps {

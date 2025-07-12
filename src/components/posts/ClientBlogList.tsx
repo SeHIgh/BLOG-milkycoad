@@ -24,7 +24,6 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
     data: posts,
     isLoading,
     error,
-    refetch,
   } = useQuery({
     queryKey: apiKeys.blogPosts(publishedOnly),
     queryFn: () => clientApi.getBlogPosts(publishedOnly),
@@ -32,27 +31,12 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
     gcTime: 10 * 60 * 1000, // 10분 (이전 cacheTime)
   });
 
-  if (isLoading) {
+  // !(오류) 로딩 중 혹은 에러 시 스켈레톤 UI 표시
+  if (isLoading || error) {
     return <BlogListSkeleton />;
   }
 
-  if (error) {
-    return (
-      <div className='text-center py-12'>
-        <h2 className='text-xl font-semibold mb-2 text-red-600'>오류가 발생했습니다</h2>
-        <p className='text-muted-foreground mb-4'>
-          {error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'}
-        </p>
-        <button
-          onClick={() => refetch()}
-          className='px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
-        >
-          다시 시도
-        </button>
-      </div>
-    );
-  }
-
+  // *(정상) 작성된(or 배포된) 포스트가 없을 때
   if (!posts || posts.length === 0) {
     return (
       <div className='text-center py-12'>
@@ -62,6 +46,7 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
     );
   }
 
+  // *(정상) 포스트 렌더링
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {posts.map((post) => (
@@ -71,7 +56,7 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
   );
 }
 
-// * 포스트 카드
+// * 포스트 카드 (재사용)
 function BlogPostCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/posts/${encodeURIComponent(post.slug)}`} className='block group'>
@@ -118,7 +103,7 @@ function BlogPostCard({ post }: { post: BlogPost }) {
             <div className='flex items-center gap-2'>
               <Calendar className='w-4 h-4' />
               <time dateTime={post.lastEditedAt}>
-                {format(new Date(post.lastEditedAt), 'yy년 M월 d일 HH:MM', {
+                {format(new Date(post.lastEditedAt), 'yyyy년 M월 d일 HH:mm', {
                   locale: ko,
                 })}
               </time>
@@ -175,7 +160,7 @@ function BlogPostCard({ post }: { post: BlogPost }) {
   );
 }
 
-// * 로딩 스캘레톤 화면
+// * 로딩 스캘레톤 화면 (재사용)
 function BlogListSkeleton() {
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -219,3 +204,5 @@ function BlogListSkeleton() {
     </div>
   );
 }
+
+export { BlogPostCard, BlogListSkeleton };
