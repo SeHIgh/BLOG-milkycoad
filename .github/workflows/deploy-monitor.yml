@@ -1,42 +1,32 @@
 name: Deploy Monitor
-
-on:
-  push:
-    branches: [main, master]
-  workflow_dispatch:
-
+'on': null
 jobs:
-  deploy-check:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 코드 체크아웃
-        uses: actions/checkout@v4
-
-      - name: 배포 시작 알림
-        run: |
-          echo "🚀 Vercel 배포 시작"
-          echo "⏰ 배포 시간: $(date)"
-          echo "📦 커밋: ${{ github.sha }}"
-          echo "👤 작성자: ${{ github.actor }}"
-
-      - name: 대기 시간 (배포 완료 대기)
-        run: sleep 30
-
-      - name: 배포 완료 확인
-        run: |
-          echo "✅ 배포 프로세스 완료"
-          echo "🌐 사이트가 업데이트되었습니다"
-          echo "🔗 배포 URL: https://your-blog-url.vercel.app"
-
   health-check:
     runs-on: ubuntu-latest
-    needs: deploy-check
-
     steps:
-      - name: 사이트 상태 확인
-        run: |
-          echo "🔍 사이트 상태 확인 중..."
-          # 실제 사이트 URL로 변경하세요
-          # curl -f https://your-blog-url.vercel.app || exit 1
-          echo "✅ 사이트가 정상적으로 작동 중입니다"
+     -
+      name: 코드 체크아웃
+      uses: actions/checkout@v4
+     -
+      name: 배포 시작 알림
+      run: |
+        echo "🚀 Vercel 배포 시작"
+        echo "⏰ 배포 시간: $(date)"
+        echo "📦 커밋: ${{ github.sha }}"
+        echo "👤 작성자: ${{ github.actor }}"
+     -
+      name: 대기 시간 (배포 완료 대기)
+      run: sleep 30
+     -
+      name: 배포 완료 확인
+      run: |
+        echo "✅ 배포 프로세스 완료"
+        echo "🌐 사이트가 업데이트되었습니다"
+        echo "🔗 배포 URL: https://your-blog-url.vercel.app"
+     -
+      name: 사이트 상태 확인
+      run: |
+        echo "🔍 사이트 상태 확인 중..."
+        # 실제 사이트 URL로 변경하세요
+        # curl -f https://your-blog-url.vercel.app || exit 1
+        echo "✅ 사이트가 정상적으로 작동 중입니다"
