@@ -1,0 +1,47 @@
+name: Java CICD
+'on':
+  workflow_dispatch: {
+    }
+  push:
+    branches:
+     - v2
+jobs:
+  job1:
+    jobs:
+      job1:
+        runs-on: ubuntu-latest
+    steps:
+     -
+      name: Checkout repository
+      uses: actions/checkout@v4
+     -
+      name: Docker Login
+      uses: docker/login-action@v2.2.0
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+  job2:
+    jobs:
+      job2:
+        runs-on: ubuntu-latest
+    steps:
+     -
+      name: Docker Login
+      uses: docker/login-action@v2.2.0
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+     -
+      name: image build and push docker images
+      uses: docker/build-push-action@v4.1.1
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/bus-notice-v2:latest
+        no-cache: true
+  job3:
+    jobs:
+      job3:
+        runs-on: ubuntu-latest
+    steps: [
+      ]
