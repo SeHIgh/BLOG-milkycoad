@@ -1,0 +1,171 @@
+name: Java CICD
+'on':
+  workflow_dispatch: {
+    }
+  push:
+    branches:
+     - v2
+x_name: 워크플로우 기본 설정
+x_description: GitHub Actions 워크플로우 이름과 트리거 조건을 설정하는 블록입니다.
+jobs:
+  main:
+    jobs:
+      main:
+        runs-on: ubuntu-latest
+    x_name: Job 설정
+    x_description: 사용자 정의 job-id와 실행 환경을 설정하는 블록입니다.
+    steps:
+     -
+      name: Checkout repository
+      uses: actions/checkout@v4
+      x_name: Checkout repository
+      x_description: GitHub 저장소를 체크아웃하는 단계입니다.
+      x_domain: github
+      x_task:
+       - checkout
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+     -
+      name: Checkout repository
+      uses: actions/checkout@v4
+      x_name: Checkout repository
+      x_description: GitHub 저장소를 체크아웃하는 단계입니다.
+      x_domain: github
+      x_task:
+       - checkout
+  job2:
+    jobs:
+      job2:
+        runs-on: ubuntu-latest
+    x_name: Job 설정
+    x_description: 사용자 정의 job-id와 실행 환경을 설정하는 블록입니다.
+    steps: [
+      ]
+  job3:
+    jobs:
+      job3:
+        runs-on: ubuntu-latest
+    x_name: Job 설정
+    x_description: 사용자 정의 job-id와 실행 환경을 설정하는 블록입니다.
+    steps:
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+  job4:
+    jobs:
+      job4:
+        runs-on: ubuntu-latest
+    x_name: Job 설정
+    x_description: 사용자 정의 job-id와 실행 환경을 설정하는 블록입니다.
+    steps:
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+  job5:
+    jobs:
+      job5:
+        runs-on: ubuntu-latest
+    x_name: Job 설정
+    x_description: 사용자 정의 job-id와 실행 환경을 설정하는 블록입니다.
+    steps:
+     -
+      name: Gradle Build (no test)
+      run: |-
+        chmod +x ./gradlew
+        ./gradlew clean build -x test
+      x_name: Gradle 빌드 블록
+      x_description: Gradle Wrapper에 권한을 부여하고, 테스트를 제외한 빌드만 수행합니다.
+      x_domain: gradle
+      x_task:
+       - build
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
+     -
+      name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: adopt
+        java-version: '21'
+      x_name: Set up JDK 21
+      x_description: GitHub Actions 실행 환경에 AdoptOpenJDK 21을 설치하는 단계입니다.
+      x_domain: java
+      x_task:
+       - setup
