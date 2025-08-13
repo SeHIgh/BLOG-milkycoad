@@ -8,8 +8,10 @@ name: Java CICD
 x_name: 워크플로우 기본 설정
 x_description: GitHub Actions 워크플로우 이름과 트리거 조건을 설정하는 블록입니다.
 jobs:
-  job1:
+  main:
     runs-on: ubuntu-latest
+    jobs: {
+      }
     x_name: job1
     x_description: ''
     steps:
@@ -21,8 +23,10 @@ jobs:
       x_domain: ''
       x_task: [
         ]
-  job2:
+  sub:
     runs-on: ubuntu-latest
+    jobs: {
+      }
     x_name: job2
     x_description: ''
     steps:
@@ -45,8 +49,10 @@ jobs:
       x_domain: ''
       x_task: [
         ]
-  job3:
+  build:
     runs-on: ubuntu-latest
+    jobs: {
+      }
     x_name: job3
     x_description: ''
     steps:
