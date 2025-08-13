@@ -5,27 +5,50 @@ name: Java CICD
   push:
     branches:
      - v2
+x_name: 워크플로우 기본 설정
+x_description: GitHub Actions 워크플로우 이름과 트리거 조건을 설정하는 블록입니다.
 jobs:
   job1:
     runs-on: ubuntu-latest
+    x_name: job1
+    x_description: ''
     steps:
      -
       name: Checkout repository
       uses: actions/checkout@v4
+      x_name: Checkout repository
+      x_description: ''
+      x_domain: ''
+      x_task: [
+        ]
   job2:
     runs-on: ubuntu-latest
+    x_name: job2
+    x_description: ''
     steps:
      -
       name: Checkout repository
       uses: actions/checkout@v4
+      x_name: Checkout repository
+      x_description: ''
+      x_domain: ''
+      x_task: [
+        ]
      -
       name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         distribution: adopt
         java-version: '21'
+      x_name: Set up JDK 21
+      x_description: ''
+      x_domain: ''
+      x_task: [
+        ]
   job3:
     runs-on: ubuntu-latest
+    x_name: job3
+    x_description: ''
     steps:
      -
       name: Docker Login
@@ -33,6 +56,11 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+      x_name: Docker Login
+      x_description: ''
+      x_domain: ''
+      x_task: [
+        ]
      -
       name: image build and push docker images
       uses: docker/build-push-action@v4.1.1
@@ -41,6 +69,11 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/bus-notice-v2:latest
         no-cache: true
+      x_name: image build and push docker images
+      x_description: ''
+      x_domain: ''
+      x_task: [
+        ]
      -
       name: Deploy to AWS EC2
       uses: appleboy/ssh-action@v0.1.10
@@ -55,3 +88,8 @@ jobs:
           docker stop bus-notice-v2
           docker rm $(docker ps --filter 'status=exited' -a -q)
           docker run -d --name bus-notice-v2 --log-driver=syslog --network bus-notice -p 8081:8080 --label co.elastic.logs/enabled=true --label co.elastic.logs/module=java ${{ secrets.DOCKER_USERNAME }}/bus-notice-v2:latest
+      x_name: Deploy to AWS EC2
+      x_description: ''
+      x_domain: ''
+      x_task: [
+        ]
