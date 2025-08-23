@@ -56,8 +56,19 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
   if (!posts || posts.length === 0) {
     return (
       <div className='text-center py-12'>
-        <h2 className='text-xl font-semibold mb-2'>아직 게시된 글이 없습니다</h2>
-        <p className='text-muted-foreground'>첫 번째 블로그 포스트를 작성해보세요!</p>
+        <h2 className='text-xl font-semibold mb-2'>블로그 포스트를 불러올 수 없습니다</h2>
+        <p className='text-muted-foreground mb-4'>
+          Notion API 설정이 필요합니다. 환경변수를 확인해주세요.
+        </p>
+        <div className='bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 max-w-md mx-auto text-left'>
+          <h3 className='font-semibold text-yellow-800 dark:text-yellow-200 mb-2'>설정 방법:</h3>
+          <ol className='text-sm text-yellow-700 dark:text-yellow-300 space-y-1'>
+            <li>1. Notion Integration Token 생성</li>
+            <li>2. Notion Database ID 확인</li>
+            <li>3. .env.local 파일에 환경변수 설정</li>
+            <li>4. 개발 서버 재시작</li>
+          </ol>
+        </div>
       </div>
     );
   }

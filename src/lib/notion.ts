@@ -18,19 +18,34 @@ import {
 function getRequiredEnv(key: string): string {
   const value = process.env[key];
   if (!value) {
+    // 개발 환경에서는 기본값 제공, 프로덕션에서는 오류 발생
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(
+        `⚠️ ${key} 환경변수가 설정되지 않았습니다. 개발 모드에서는 기본값을 사용합니다.`,
+      );
+      return '';
+    }
     throw new Error(`${key} 환경변수가 설정되지 않았습니다.`);
   }
   return value;
 }
 
-// * 토큰 가져오기
-const NOTION_TOKEN = getRequiredEnv('NOTION_TOKEN');
-const NOTION_DATABASE_ID = getRequiredEnv('NOTION_DATABASE_ID');
+// * 토큰 가져오기 (개발 환경에서는 기본값 허용)
+const NOTION_TOKEN =
+  process.env.NODE_ENV === 'development'
+    ? process.env.NOTION_TOKEN || ''
+    : getRequiredEnv('NOTION_TOKEN');
+const NOTION_DATABASE_ID =
+  process.env.NODE_ENV === 'development'
+    ? process.env.NOTION_DATABASE_ID || ''
+    : getRequiredEnv('NOTION_DATABASE_ID');
 
 // * Notion 클라이언트 설정 (서버사이드 전용)
-export const notion = new Client({
-  auth: NOTION_TOKEN,
-});
+export const notion = NOTION_TOKEN
+  ? new Client({
+      auth: NOTION_TOKEN,
+    })
+  : null;
 
 // * 포스트 타입 정의
 export interface BlogPost {
@@ -52,6 +67,12 @@ export interface BlogPost {
 // * 데이터베이스에서 모든 게시글 가져오기
 export async function getBlogPosts(publishedOnly: boolean = true): Promise<BlogPost[]> {
   try {
+    // 환경변수가 설정되지 않은 경우 빈 배열 반환
+    if (!notion || !NOTION_DATABASE_ID) {
+      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.');
+      return [];
+    }
+
     console.log('📋 모든 블로그 포스트 가져오기...');
 
     // * 필터 없이 모든 데이터 가져오기 (정렬 제거하여 속성 오류 방지)
@@ -82,6 +103,12 @@ export async function getBlogPosts(publishedOnly: boolean = true): Promise<BlogP
 // * 특정 게시글 가져오기
 export async function getBlogPost(pageId: string): Promise<BlogPost | null> {
   try {
+    // 환경변수가 설정되지 않은 경우 null 반환
+    if (!notion) {
+      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. null을 반환합니다.');
+      return null;
+    }
+
     // * 페이지 가져오기
     const page = await notion.pages.retrieve({ page_id: pageId });
 
@@ -109,6 +136,12 @@ export async function getBlogPost(pageId: string): Promise<BlogPost | null> {
 // * slug로 게시글 가져오기
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
+    // 환경변수가 설정되지 않은 경우 null 반환
+    if (!notion || !NOTION_DATABASE_ID) {
+      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. null을 반환합니다.');
+      return null;
+    }
+
     console.log('🔍 slug로 포스트 검색:', slug);
 
     // * 모든 포스트 가져오기

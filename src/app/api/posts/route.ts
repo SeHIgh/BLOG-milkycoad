@@ -8,6 +8,17 @@ export async function GET(request: NextRequest) {
 
     const posts = await getBlogPosts(publishedOnly);
 
+    // 환경변수가 설정되지 않은 경우 특별한 응답
+    if (posts.length === 0 && !process.env.NOTION_TOKEN) {
+      return NextResponse.json({
+        success: false,
+        error: 'NOTION_TOKEN 환경변수가 설정되지 않았습니다.',
+        message: 'Notion API 설정이 필요합니다.',
+        data: [],
+        count: 0,
+      });
+    }
+
     return NextResponse.json({
       success: true,
       data: posts,
