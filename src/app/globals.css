@@ -1,75 +1,75 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 @font-face {
-    font-family: "Galmuri9";
-    src: url("/fonts/Galmuri9.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Galmuri9';
+  src: url('/fonts/Galmuri9.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Galmuri11";
-    src: url("/fonts/Galmuri11.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Galmuri11';
+  src: url('/fonts/Galmuri11.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Galmuri11";
-    src: url("/fonts/Galmuri11-Bold.woff2") format("woff2");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Galmuri11';
+  src: url('/fonts/Galmuri11-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
 @theme custom {
-    --font-galmuri9: "Galmuri9", "sans-serif";
-    --font-galmuri11: "Galmuri11", "sans-serif";
+  --font-galmuri9: 'Galmuri9', 'sans-serif';
+  --font-galmuri11: 'Galmuri11', 'sans-serif';
 }
 
 /* :root {
@@ -154,144 +154,187 @@
 } */
 
 :root {
-    --radius: 0.625rem;
+  --radius: 0.625rem;
 
-    /* 배경: 소프트 화이트 */
-    --background: hsl(210 40% 99%);
-    --foreground: #27364b; /* indigo-900 계열 */
+  /* 배경: 소프트 화이트 */
+  --background: hsl(210 40% 99%);
+  --foreground: #27364b; /* indigo-900 계열 */
 
-    /* 카드/팝오버 */
-    --card: hsl(210 40% 99%); /* sky-50과 soft white 중간톤 */
-    --card-foreground: #27364b;
+  /* 카드/팝오버 */
+  --card: hsl(210 40% 99%); /* sky-50과 soft white 중간톤 */
+  --card-foreground: #27364b;
 
-    --popover: #f0f6fb; /* sky-50보다 살짝 더 푸른 오프화이트 */
-    --popover-foreground: #27364b;
+  --popover: #f0f6fb; /* sky-50보다 살짝 더 푸른 오프화이트 */
+  --popover-foreground: #27364b;
 
-    /* 프라이머리(메인 포인트) */
-    --primary: var(--color-blue-200); /* sky-300 */
-    --primary-foreground: #194185; /* blue-900 */
+  /* 프라이머리(메인 포인트) */
+  --primary: var(--color-blue-200); /* sky-300 */
+  --primary-foreground: #194185; /* blue-900 */
 
-    /* 세컨더리(보조 포인트) */
-    --secondary: var(--color-blue-200); /* sky-200 */
-    --secondary: var(--color-blue-100); /* sky-200 */
-    --secondary-foreground: #194185;
+  /* 세컨더리(보조 포인트) */
+  --secondary: var(--color-blue-200); /* sky-200 */
+  --secondary: var(--color-blue-100); /* sky-200 */
+  --secondary-foreground: #194185;
 
-    /* 뮤티드(비활성/서브) */
-    --muted: #e0e7ef; /* blue-50과 sky-50 중간 */
-    --muted-foreground: #475569; /* slate-500 */
+  /* 뮤티드(비활성/서브) */
+  --muted: #e0e7ef; /* blue-50과 sky-50 중간 */
+  --muted-foreground: #475569; /* slate-500 */
 
-    /* 악센트 */
-    --accent: var(--color-blue-100);
-    --accent-foreground: #27364b;
+  /* 악센트 */
+  --accent: var(--color-blue-100);
+  --accent-foreground: #27364b;
 
-    /* 파괴(경고) */
-    --destructive: #fca5a5; /* red-300 파스텔톤 */
-    --destructive: #f87171; /* red-300 파스텔톤 */
-    --destructive: #b91c1c; /* red-300 파스텔톤 */
-    --destructive: #ef4444;
-    --border: #e2e8f0; /* blue-100/slate-100 */
-    --border: var(--color-slate-300);
-    --input: #e2e8f0;
-    --ring: #7dd3fc; /* sky-300 */
+  /* 파괴(경고) */
+  --destructive: #fca5a5; /* red-300 파스텔톤 */
+  --destructive: #f87171; /* red-300 파스텔톤 */
+  --destructive: #b91c1c; /* red-300 파스텔톤 */
+  --destructive: #ef4444;
+  --border: #e2e8f0; /* blue-100/slate-100 */
+  --border: var(--color-slate-300);
+  --input: #e2e8f0;
+  --ring: #7dd3fc; /* sky-300 */
 
-    /* Chart Colors (블루~시안 계열) */
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
+  /* Chart Colors (블루~시안 계열) */
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
 
-    /* 사이드바 */
-    --sidebar: #eaf4fb; /* sky-50과 soft white 중간 */
-    --sidebar-foreground: #27364b;
-    --sidebar-primary: #7dd3fc; /* sky-300 */
-    --sidebar-primary-foreground: #194185;
-    --sidebar-accent: #a5b4fc; /* indigo-200 */
-    --sidebar-accent-foreground: #27364b;
-    --sidebar-accent-foreground: var(--color-indigo-300);
-    --sidebar-accent-foreground: var(--color-blue-200);
-    --sidebar-border: #e2e8f0;
-    --sidebar-ring: #7dd3fc;
-    --sidebar-ring: var(--color-indigo-300);
-    --sidebar-ring: var(--color-blue-200);
+  /* 사이드바 */
+  --sidebar: #eaf4fb; /* sky-50과 soft white 중간 */
+  --sidebar-foreground: #27364b;
+  --sidebar-primary: #7dd3fc; /* sky-300 */
+  --sidebar-primary-foreground: #194185;
+  --sidebar-accent: #a5b4fc; /* indigo-200 */
+  --sidebar-accent-foreground: #27364b;
+  --sidebar-accent-foreground: var(--color-indigo-300);
+  --sidebar-accent-foreground: var(--color-blue-200);
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #7dd3fc;
+  --sidebar-ring: var(--color-indigo-300);
+  --sidebar-ring: var(--color-blue-200);
 }
 
 .dark {
-    --background: #1e293b; /* slate-900 */
-    --foreground: hsl(210 40% 99%);
+  --background: #1e293b; /* slate-900 */
+  --foreground: hsl(210 40% 99%);
 
-    --card: #1e293b; /* slate-900 */
-    --card-foreground: hsl(210 40% 99%);
+  --card: #1e293b; /* slate-900 */
+  --card-foreground: hsl(210 40% 99%);
 
-    --popover: #22304a; /* indigo-950 */
-    --popover-foreground: #f5f7fa;
+  --popover: #22304a; /* indigo-950 */
+  --popover-foreground: #f5f7fa;
 
-    --primary: #1e293b;
-    --primary-foreground: var(--color-blue-200);
+  --primary: #1e293b;
+  --primary-foreground: var(--color-blue-200);
 
-    --secondary: #64748b; /* slate-500 */
-    --secondary-foreground: #f5f7fa;
-    --secondary-foreground: #94a3b8;
+  --secondary: #64748b; /* slate-500 */
+  --secondary-foreground: #f5f7fa;
+  --secondary-foreground: #94a3b8;
 
-    --muted: #334155; /* slate-800 */
-    --muted-foreground: var(--color-slate-400);
+  --muted: #334155; /* slate-800 */
+  --muted-foreground: var(--color-slate-400);
 
-    --accent: #1e293b;
-    --accent-foreground: var(--color-blue-300);
+  --accent: #1e293b;
+  --accent-foreground: var(--color-blue-300);
 
-    --destructive: #fca5a5;
-    --destructive: #f87171;
-    /* --destructive: #ef4444; */
-    --border: var(--color-slate-500);
-    --input: #334155;
-    --ring: var(--color-blue-200);
+  --destructive: #fca5a5;
+  --destructive: #f87171;
+  /* --destructive: #ef4444; */
+  --border: var(--color-slate-500);
+  --input: #334155;
+  --ring: var(--color-blue-200);
 
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
 
-    --sidebar: #22304a;
-    --sidebar-foreground: #e0e7ef;
-    --sidebar-primary: #38bdf8;
-    --sidebar-primary-foreground: #f5f7fa;
-    --sidebar-accent: #6366f1;
-    --sidebar-accent-foreground: #f5f7fa;
-    --sidebar-accent-foreground: var(--color-indigo-300);
-    --sidebar-accent-foreground: var(--color-blue-200);
-    --sidebar-border: #334155;
-    --sidebar-ring: #38bdf8;
-    --sidebar-ring: var(--color-blue-200);
+  --sidebar: #22304a;
+  --sidebar-foreground: #e0e7ef;
+  --sidebar-primary: #38bdf8;
+  --sidebar-primary-foreground: #f5f7fa;
+  --sidebar-accent: #6366f1;
+  --sidebar-accent-foreground: #f5f7fa;
+  --sidebar-accent-foreground: var(--color-indigo-300);
+  --sidebar-accent-foreground: var(--color-blue-200);
+  --sidebar-border: #334155;
+  --sidebar-ring: #38bdf8;
+  --sidebar-ring: var(--color-blue-200);
+}
+
+/* TanStack DevTools 색상 보호 */
+#tanstack-router-devtools,
+#tanstack-router-devtools *,
+#tanstack-query-devtools,
+#tanstack-query-devtools * {
+  color: inherit !important;
+  background-color: inherit !important;
+}
+
+/* DevTools 컨테이너 보호 */
+[data-testid='tanstack-query-devtools'],
+[data-testid='tanstack-router-devtools'] {
+  color: initial !important;
+  background-color: initial !important;
 }
 
 @layer base {
-    * {
-        @apply border-border outline-ring/50 text-foreground;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
-    a,
-    button {
-        @apply cursor-pointer transition duration-200 ease-in-out hover:text-blue-200;
-    }
+  * {
+    @apply border-border outline-ring/50 text-foreground;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  a,
+  button {
+    @apply cursor-pointer transition duration-200 ease-in-out hover:text-blue-200;
+  }
 
-    a,
-    button,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    span,
-    strong {
-        @apply transition duration-200 ease-in-out;
-    }
+  a,
+  button,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  strong {
+    @apply transition duration-200 ease-in-out;
+  }
 
-    svg {
-        @apply transition duration-200 ease-in-out text-foreground;
-    }
+  svg {
+    @apply transition duration-200 ease-in-out text-foreground;
+  }
+
+  /* 순서가 있는 리스트 스타일링 */
+  .numbered-list-counter {
+    position: relative;
+  }
+
+  .numbered-list-counter::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: inherit;
+  }
+
+  /* 순서가 있는 리스트 컨테이너 */
+  ol {
+    counter-reset: list-counter;
+    list-style: none;
+    padding: 0;
+  }
+
+  ol li {
+    counter-increment: list-counter;
+  }
 }

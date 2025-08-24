@@ -23,8 +23,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       console.warn('Slug 디코딩 실패, 원본 사용:', slug);
     }
 
-    console.log('API 라우트에서 처리된 slug:', slug);
-
     if (!slug) {
       return NextResponse.json(
         {
