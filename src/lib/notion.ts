@@ -73,8 +73,6 @@ export async function getBlogPosts(publishedOnly: boolean = true): Promise<BlogP
       return [];
     }
 
-    console.log('📋 모든 블로그 포스트 가져오기...');
-
     // * 필터 없이 모든 데이터 가져오기 (정렬 제거하여 속성 오류 방지)
     const response = await notion.databases.query({
       database_id: NOTION_DATABASE_ID,
@@ -86,12 +84,8 @@ export async function getBlogPosts(publishedOnly: boolean = true): Promise<BlogP
       .map(mapNotionPageToBlogPost)
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // 클라이언트에서 정렬
 
-    console.log(`✅ ${blogPosts.length}개의 포스트를 가져왔습니다`);
-
     //* 발행된 포스트만 필터링
     const filteredPosts = publishedOnly ? blogPosts.filter((post) => post.isPublished) : blogPosts;
-
-    console.log(`📌 최종 반환: ${filteredPosts.length}개 포스트 (발행만: ${publishedOnly})`);
 
     return filteredPosts;
   } catch (error) {
@@ -117,14 +111,12 @@ export async function getBlogPost(pageId: string): Promise<BlogPost | null> {
       return null;
     }
 
-    // * 블록 가져오기
-    const blocks = await notion.blocks.children.list({
-      block_id: pageId,
-    });
+    // * 블록 가져오기 (재귀적으로 자식 블록들 포함)
+    const blocks = await getBlocksWithChildren(pageId);
 
     // * 포스트 매핑
     const blogPost = mapNotionPageToBlogPost(page);
-    blogPost.content = blocks.results;
+    blogPost.content = blocks;
 
     return blogPost;
   } catch (error) {
@@ -142,8 +134,6 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       return null;
     }
 
-    console.log('🔍 slug로 포스트 검색:', slug);
-
     // * 모든 포스트 가져오기
     const allPosts = await getBlogPosts(false);
 
@@ -152,24 +142,90 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 
     // * 포스트 찾음
     if (!matchedPost) {
-      console.log('❌ 해당 slug로 포스트를 찾을 수 없음:', slug);
       return null;
     }
 
-    console.log('✅ 포스트 찾음:', matchedPost.title);
-
-    // * 블록 가져오기
-    const blocks = await notion.blocks.children.list({
-      block_id: matchedPost.id,
-    });
+    // * 블록 가져오기 (재귀적으로 자식 블록들 포함)
+    const blocks = await getBlocksWithChildren(matchedPost.id);
 
     // * 포스트 컨텐츠 설정
-    matchedPost.content = blocks.results;
+    matchedPost.content = blocks;
 
     return matchedPost;
   } catch (error) {
     console.error('❌ 블로그 포스트 조회 중 오류 발생:', error);
     return null;
+  }
+}
+
+// * 블록의 자식 블록들을 재귀적으로 가져오기 (필요한 경우에만)
+export async function getBlocksWithChildren(
+  blockId: string,
+): Promise<(BlockObjectResponse | PartialBlockObjectResponse)[]> {
+  try {
+    if (!notion) {
+      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.');
+      return [];
+    }
+
+    const response = await notion.blocks.children.list({
+      block_id: blockId,
+    });
+
+    // 각 블록의 자식 블록들도 재귀적으로 가져오기
+    const blocksWithChildren = await Promise.all(
+      response.results.map(async (block) => {
+        if ('type' in block) {
+          // 자식 블록을 가질 수 있는 블록 타입들
+          const hasChildren = [
+            'callout',
+            'toggle',
+            'quote',
+            'table_of_contents',
+            'column_list',
+            'column',
+            'synced_block',
+          ].includes(block.type);
+
+          if (hasChildren) {
+            try {
+              const children = await getBlocksWithChildren(block.id);
+              return { ...block, children };
+            } catch (error) {
+              console.warn(`⚠️ 블록 ${block.id}의 자식 블록을 가져오는 중 오류:`, error);
+              return block;
+            }
+          }
+        }
+        return block;
+      }),
+    );
+
+    return blocksWithChildren;
+  } catch (error) {
+    console.error('❌ 블록을 가져오는 중 오류 발생:', error);
+    throw error;
+  }
+}
+
+// * 테이블 블록의 자식 블록들 가져오기
+export async function getTableBlocks(
+  blockId: string,
+): Promise<(BlockObjectResponse | PartialBlockObjectResponse)[]> {
+  try {
+    if (!notion) {
+      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.');
+      return [];
+    }
+
+    const response = await notion.blocks.children.list({
+      block_id: blockId,
+    });
+
+    return response.results;
+  } catch (error) {
+    console.error('❌ 테이블 블록을 가져오는 중 오류 발생:', error);
+    throw error;
   }
 }
 
