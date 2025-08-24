@@ -9,6 +9,8 @@ jobs:
     name: 'Move issue to In Progress'
     runs-on: ubuntu-latest
 
+    if: github.base_ref == 'develop'
+
     permissions:
       repository-projects: write
       pull-requests: read
