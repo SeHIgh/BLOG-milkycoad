@@ -8,6 +8,11 @@ jobs:
   move_issue_to_in_progress:
     name: 'Move issue to In Progress'
     runs-on: ubuntu-latest
+
+    permissions:
+      repository-projects: write
+      pull-requests: read
+
     steps:
       - name: 'Move issue to "Progress"'
         uses: alex-page/github-project-automation-plus@v0.8.1
