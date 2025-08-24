@@ -2,17 +2,65 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { clientApi, apiKeys } from '@/lib/api';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import Link from 'next/link';
-import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
-import { BlogPost } from '@/lib/notion';
-import { CONTENTS_PATH } from '@/lib/contents';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { TAG_COLOR } from '@/lib/tags';
-import { Calendar, Hash } from 'lucide-react';
+import BlogPostCard from '@/components/BlogPostCard';
+
+// BlogPostsSkeleton 컴포넌트 정의
+function BlogPostsSkeleton() {
+  return (
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8'>
+      {[...Array(6)].map((_, i) => (
+        <Card
+          key={i}
+          className='h-full bg-card/30 py-0 gap-3 backdrop-blur-sm border-2 border-border shadow-lg overflow-hidden'
+        >
+          {/* 커버 이미지 영역 */}
+          <div className='relative w-full h-40 overflow-hidden'>
+            <Skeleton className='w-full h-full' />
+            {/* 읽기 시간 표시 스켈레톤 */}
+            <div className='absolute top-3 right-3'>
+              <Skeleton className='h-6 w-12 rounded' />
+            </div>
+          </div>
+
+          <CardHeader className='p-3 pb-1'>
+            <Skeleton className='h-5 w-3/4 mb-2' /> {/* 제목 */}
+            <Skeleton className='h-4 w-full mb-1' /> {/* 요약 */}
+          </CardHeader>
+
+          <CardContent className='p-3 pt-0'>
+            <div className='space-y-2'>
+              {/* 메타 정보 */}
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2 bg-muted/50 px-2 py-1 rounded'>
+                  <Skeleton className='w-3 h-3 rounded' />
+                  <Skeleton className='h-3 w-20' />
+                </div>
+              </div>
+
+              {/* 태그 영역 */}
+              <div className='flex items-start justify-between gap-2'>
+                {/* 메인 태그 - 왼쪽 */}
+                <div className='flex flex-wrap gap-1.5 flex-1 min-w-0'>
+                  <Skeleton className='h-6 w-16 rounded' />
+                  <Skeleton className='h-6 w-14 rounded' />
+                  <Skeleton className='h-6 w-12 rounded' />
+                </div>
+
+                {/* 서브 태그 - 오른쪽 */}
+                <div className='flex flex-wrap gap-1.5 justify-end flex-shrink-0'>
+                  <Skeleton className='h-6 w-12 rounded' />
+                  <Skeleton className='h-6 w-10 rounded' />
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+}
 
 interface ClientBlogListProps {
   publishedOnly?: boolean;
@@ -33,199 +81,118 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
   });
 
   if (isLoading) {
-    return <BlogListSkeleton />;
+    return <BlogPostsSkeleton />;
   }
 
   if (error) {
     return (
-      <div className='text-center py-12'>
-        <h2 className='text-xl font-semibold mb-2 text-red-600'>오류가 발생했습니다</h2>
-        <p className='text-muted-foreground mb-4'>
-          {error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'}
-        </p>
-        <button
-          onClick={() => refetch()}
-          className='px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
-        >
-          다시 시도
-        </button>
+      <div className='text-center py-16 px-4'>
+        <div className='max-w-md mx-auto'>
+          <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center border-2 border-red-200 dark:border-red-800'>
+            <svg
+              className='w-10 h-10 text-red-600'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z'
+              />
+            </svg>
+          </div>
+          <h2 className='text-2xl font-bold mb-4 text-red-600 dark:text-red-400'>
+            ⚠️ 오류가 발생했습니다
+          </h2>
+          <p className='text-muted-foreground mb-8 leading-relaxed text-lg'>
+            {error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'}
+          </p>
+          <button
+            onClick={() => refetch()}
+            className='px-8 py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95 border-2 border-red-500'
+          >
+            🔄 다시 시도
+          </button>
+        </div>
       </div>
     );
   }
 
   if (!posts || posts.length === 0) {
     return (
-      <div className='text-center py-12'>
-        <h2 className='text-xl font-semibold mb-2'>블로그 포스트를 불러올 수 없습니다</h2>
-        <p className='text-muted-foreground mb-4'>
-          Notion API 설정이 필요합니다. 환경변수를 확인해주세요.
-        </p>
-        <div className='bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 max-w-md mx-auto text-left'>
-          <h3 className='font-semibold text-yellow-800 dark:text-yellow-200 mb-2'>설정 방법:</h3>
-          <ol className='text-sm text-yellow-700 dark:text-yellow-300 space-y-1'>
-            <li>1. Notion Integration Token 생성</li>
-            <li>2. Notion Database ID 확인</li>
-            <li>3. .env.local 파일에 환경변수 설정</li>
-            <li>4. 개발 서버 재시작</li>
-          </ol>
+      <div className='text-center py-16 px-4'>
+        <div className='max-w-lg mx-auto'>
+          <div className='w-24 h-24 mx-auto mb-6 rounded-full bg-yellow-100 dark:bg-yellow-900/20 flex items-center justify-center border-2 border-yellow-200 dark:border-yellow-800'>
+            <svg
+              className='w-12 h-12 text-yellow-600 dark:text-yellow-400'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z'
+              />
+            </svg>
+          </div>
+          <h2 className='text-3xl font-bold mb-4 text-foreground'>
+            📝 블로그 포스트를 불러올 수 없습니다
+          </h2>
+          <p className='text-muted-foreground mb-8 leading-relaxed text-lg'>
+            Notion API 설정이 필요합니다. 환경변수를 확인해주세요.
+          </p>
+          <div className='bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-200 dark:border-yellow-800 rounded-2xl p-8 text-left shadow-lg'>
+            <h3 className='font-bold text-yellow-800 dark:text-yellow-200 mb-6 flex items-center gap-3 text-xl'>
+              <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                />
+              </svg>
+              설정 방법
+            </h3>
+            <ol className='text-base text-yellow-700 dark:text-yellow-300 space-y-3'>
+              <li className='flex items-start gap-4'>
+                <span className='flex-shrink-0 w-8 h-8 bg-yellow-200 dark:bg-yellow-800 rounded-full flex items-center justify-center text-sm font-bold border border-yellow-300 dark:border-yellow-700'>
+                  1
+                </span>
+                <span className='pt-1'>Notion Integration Token 생성</span>
+              </li>
+              <li className='flex items-start gap-4'>
+                <span className='flex-shrink-0 w-8 h-8 bg-yellow-200 dark:bg-yellow-800 rounded-full flex items-center justify-center text-sm font-bold border border-yellow-300 dark:border-yellow-700'>
+                  2
+                </span>
+                <span className='pt-1'>Notion Database ID 확인</span>
+              </li>
+              <li className='flex items-start gap-4'>
+                <span className='flex-shrink-0 w-8 h-8 bg-yellow-200 dark:bg-yellow-800 rounded-full flex items-center justify-center text-sm font-bold border border-yellow-300 dark:border-yellow-700'>
+                  3
+                </span>
+                <span className='pt-1'>.env.local 파일에 환경변수 설정</span>
+              </li>
+              <li className='flex items-start gap-4'>
+                <span className='flex-shrink-0 w-8 h-8 bg-yellow-200 dark:bg-yellow-800 rounded-full flex items-center justify-center text-sm font-bold border border-yellow-300 dark:border-yellow-700'>
+                  4
+                </span>
+                <span className='pt-1'>개발 서버 재시작</span>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8'>
       {posts.map((post) => (
-        <BlogPostCard key={post.id} post={post} />
-      ))}
-    </div>
-  );
-}
-
-// * 포스트 카드
-function BlogPostCard({ post }: { post: BlogPost }) {
-  return (
-    <Link href={`/posts/${encodeURIComponent(post.slug)}`} className='block group'>
-      <Card
-        className={cn(
-          'h-full transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]',
-          'p-0 pb-3 overflow-hidden',
-          'gap-5',
-        )}
-      >
-        <div className='relative w-full aspect-[16/9] overflow-hidden group'>
-          {/* 커버 이미지 */}
-          {/* 커버 이미지가 있다면, 그대로 렌더링, 없다면 기본 이미지 렌더링 */}
-          <Image
-            src={post.coverImage ? post.coverImage : CONTENTS_PATH.post.banner.main}
-            alt={post.title}
-            fill
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            className='object-cover transition-transform duration-300 group-hover:scale-105'
-          />
-        </div>
-        <CardHeader className='flex-1'>
-          {/* 제목 */}
-          <CardTitle className='line-clamp-2 group-hover:text-sidebar-accent-foreground transition-colors'>
-            {post.title}
-          </CardTitle>
-          {/* 요약, 설명 */}
-          {post.summary && (
-            <CardDescription className='line-clamp-3'>{post.summary}</CardDescription>
-          )}
-        </CardHeader>
-        <CardContent>
-          <div className='grid grid-cols-1 gap-2 text-sm text-muted-foreground pb-1'>
-            {/* 시간 */}
-            {/* <div className='flex items-center gap-2'>
-              <Calendar className='w-4 h-4' />
-              <time dateTime={post.createdAt}>
-                {format(new Date(post.createdAt), 'yy년 MM월 dd일 HH:MM', {
-                  locale: ko,
-                })}
-              </time>
-            </div> */}
-            {/* 시간 */}
-            <div className='flex items-center gap-2'>
-              <Calendar className='w-4 h-4' />
-              <time dateTime={post.lastEditedAt}>
-                {format(new Date(post.lastEditedAt), 'yy년 M월 d일 HH:MM', {
-                  locale: ko,
-                })}
-              </time>
-            </div>
-            {/* 태그 */}
-            <div className='flex flex-row items-center gap-2'>
-              <Hash className='w-4 h-4' />
-              {(post.mainTags.length > 0 || post.subTags.length > 0) && (
-                <div className='flex flex-row flex-wrap gap-1'>
-                  {post.mainTags.length > 0 && (
-                    <div className='flex gap-1 flex-wrap'>
-                      {post.mainTags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className='px-2 py-1 bg-secondary text-accent-foreground dark:text-white rounded-md text-xs font-bold'
-                          style={{
-                            backgroundColor:
-                              TAG_COLOR.main_tags[tag] ?? TAG_COLOR.main_tags.default,
-                          }}
-                        >
-                          {tag.toUpperCase()}
-                        </span>
-                      ))}
-                      {post.mainTags.length > 2 && (
-                        <span className='text-xs'>+{post.mainTags.length - 2}</span>
-                      )}
-                    </div>
-                  )}
-                  {post.subTags.length > 0 && (
-                    <div className='flex gap-1 flex-wrap'>
-                      {post.subTags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className='px-2 py-1 bg-secondary text-accent-foreground dark:text-white rounded-md text-xs font-bold'
-                          style={{
-                            backgroundColor: TAG_COLOR.sub_tags[tag] ?? TAG_COLOR.main_tags.default,
-                          }}
-                        >
-                          {tag.toUpperCase()}
-                        </span>
-                      ))}
-                      {post.subTags.length > 2 && (
-                        <span className='text-xs'>+{post.subTags.length - 2}</span>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </Link>
-  );
-}
-
-// * 로딩 스캘레톤 화면
-function BlogListSkeleton() {
-  return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-      {[...Array(6)].map((_, i) => (
-        <Card
-          key={i}
-          className='h-full transition-all duration-300 group-hover:scale-[1.02] p-0 pb-3 overflow-hidden gap-5'
-        >
-          {/* 커버 이미지 영역 */}
-          <div className='relative w-full aspect-[16/9] overflow-hidden'>
-            <Skeleton className='absolute inset-0 w-full h-full object-cover' />
-          </div>
-          <CardHeader className='flex-1'>
-            <Skeleton className='h-6 w-3/4 mb-2' /> {/* 제목 */}
-            <Skeleton className='h-4 w-full mb-1' /> {/* 요약 1 */}
-            <Skeleton className='h-4 w-2/3' /> {/* 요약 2 */}
-          </CardHeader>
-          <CardContent>
-            <div className='flex items-start justify-between text-sm'>
-              {/* 날짜 */}
-              <Skeleton className='h-4 w-24' />
-              {/* 태그 영역 */}
-              <div className='space-y-1'>
-                <div className='flex gap-1 flex-wrap mb-1'>
-                  <Skeleton className='h-6 w-12 rounded-full' />
-                  <Skeleton className='h-6 w-12 rounded-full' />
-                  {/* +N 태그 표시용 */}
-                  <Skeleton className='h-6 w-8 rounded-full' />
-                </div>
-                <div className='flex gap-1 flex-wrap'>
-                  <Skeleton className='h-6 w-10 rounded-full' />
-                  <Skeleton className='h-6 w-10 rounded-full' />
-                  {/* +N 태그 표시용 */}
-                  <Skeleton className='h-6 w-8 rounded-full' />
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <BlogPostCard key={post.id} post={post} variant='default' />
       ))}
     </div>
   );

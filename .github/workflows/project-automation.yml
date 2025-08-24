@@ -1,0 +1,24 @@
+name: '🚀 Move Issue to In Progress'
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  move_issue_to_in_progress:
+    name: 'Move issue to In Progress'
+    runs-on: ubuntu-latest
+
+    if: github.base_ref == 'develop'
+
+    permissions:
+      repository-projects: write
+      pull-requests: read
+
+    steps:
+      - name: 'Move issue to "Progress"'
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        with:
+          project: 'milkycoad Tech Blog Develop'
+          column: 'Progress'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
