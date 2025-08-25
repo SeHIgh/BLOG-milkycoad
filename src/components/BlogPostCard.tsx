@@ -30,12 +30,12 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
   const tagPadding = isCompact ? 'px-1.5 py-0.5' : 'px-2.5 py-1';
 
   return (
-    <Link href={`/posts/${encodeURIComponent(post.slug)}`} className='block group'>
-      <Card className='h-full bg-card/30 py-0 gap-3 backdrop-blur-sm border-2 border-border shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02] overflow-hidden group-hover:bg-card/50 hover:border-primary/50'>
+    <Link href={`/posts/${encodeURIComponent(post.slug)}`} className="block group">
+      <Card className="h-full bg-card/30 py-0 gap-3 backdrop-blur-sm border-2 border-border shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02] overflow-hidden group-hover:bg-card/50 hover:border-primary/50">
         {/* 커버 이미지 */}
         <div className={cn('relative w-full overflow-hidden', imageHeight)}>
           {imageLoading && (
-            <div className='absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 animate-pulse' />
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 animate-pulse" />
           )}
           <Image
             src={
@@ -59,16 +59,16 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
             priority={false}
           />
           {/* 오버레이 */}
-          <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
           {/* 읽기 시간 표시 */}
-          <div className='absolute top-3 right-3 bg-primary/80 backdrop-blur-sm text-primary-foreground text-xs px-2 py-1 rounded flex items-center gap-1 border border-primary/30'>
-            <Clock className='w-3 h-3' />
-            <span className='font-semibold'>5분</span>
+          <div className="absolute top-3 right-3 bg-primary/80 backdrop-blur-sm text-primary-foreground text-xs px-2 py-1 rounded flex items-center gap-1 border border-primary/30">
+            <Clock className="w-3 h-3" />
+            <span className="font-semibold">5분</span>
           </div>
         </div>
 
-        <CardHeader className='p-3 pb-1'>
+        <CardHeader className="p-3 pb-1">
           {/* 제목 */}
           <CardTitle
             className={cn(
@@ -92,15 +92,15 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
           )}
         </CardHeader>
 
-        <CardContent className='p-3 pt-0'>
-          <div className='space-y-2'>
+        <CardContent className="p-3 pt-0">
+          <div className="space-y-2">
             {/* 메타 정보 */}
-            <div className='flex items-center justify-between'>
+            <div className="flex items-center justify-between">
               <div
                 className={cn('flex items-center gap-2 bg-muted/50 px-2 py-1 rounded', metaSize)}
               >
-                <Calendar className='w-3 h-3 text-primary' />
-                <time dateTime={post.lastEditedAt} className='text-muted-foreground font-medium'>
+                <Calendar className="w-3 h-3 text-primary" />
+                <time dateTime={post.lastEditedAt} className="text-muted-foreground font-medium">
                   {format(new Date(post.lastEditedAt), 'yy년 M월 d일', {
                     locale: ko,
                   })}
@@ -110,10 +110,10 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
 
             {/* 태그 */}
             {(post.mainTags.length > 0 || post.subTags.length > 0) && (
-              <div className='flex items-start justify-between gap-2'>
+              <div className="flex items-start justify-between gap-2">
                 {/* 메인 태그 - 왼쪽 */}
                 {post.mainTags.length > 0 && (
-                  <div className='flex flex-wrap gap-1.5 flex-1 min-w-0'>
+                  <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
                     {post.mainTags.slice(0, isCompact ? 2 : 3).map((tag) => (
                       <span
                         key={tag}
@@ -147,7 +147,7 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
 
                 {/* 서브 태그 - 오른쪽 */}
                 {post.subTags.length > 0 && (
-                  <div className='flex flex-wrap gap-1.5 justify-end flex-shrink-0'>
+                  <div className="flex flex-wrap gap-1.5 justify-end flex-shrink-0">
                     {post.subTags.slice(0, isCompact ? 1 : 2).map((tag) => (
                       <span
                         key={tag}

@@ -23,7 +23,7 @@ export default function CurrentRoute() {
     // 소문자 처리, 띄어쓰기 등 normalization 필요할 수 있음
     const key = seg.toLowerCase();
     const Icon = pinnedIconMap[key] || tagIconMap[key] || pinnedIconMap['default'];
-    return <Icon className='w-4 h-4' />;
+    return <Icon className="w-4 h-4" />;
   };
 
   return (
@@ -35,21 +35,21 @@ export default function CurrentRoute() {
         // "inset-ring-4 inset-ring-border"
       }
     >
-      <ul className='flex flex-row items-center gap-2'>
+      <ul className="flex flex-row items-center gap-2">
         {/* 항상 홈 아이템 먼저 */}
-        <li className='w-fit h-fit'>
-          <Link href='/' className='flex flex-row items-center gap-1 hover:underline'>
-            <Home className='w-4 h-4' />
-            <span className='text-xs text-foreground'>home</span>
+        <li className="w-fit h-fit">
+          <Link href="/" className="flex flex-row items-center gap-1 hover:underline">
+            <Home className="w-4 h-4" />
+            <span className="text-xs text-foreground">home</span>
           </Link>
         </li>
         {/* 홈이 아닌 경우에만 chevron과 segment 표시 */}
         {segments.map((seg, idx) => (
-          <li key={idx} className='flex flex-row items-center gap-2'>
-            <ChevronRight className='w-4 h-4 text-muted-foreground' />
-            <Link href={getHref(idx)} className='flex flex-row items-center gap-1 hover:underline'>
+          <li key={idx} className="flex flex-row items-center gap-2">
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            <Link href={getHref(idx)} className="flex flex-row items-center gap-1 hover:underline">
               {getIcon(seg)}
-              <span className='text-xs text-foreground'>{decodedSegments[idx]}</span>
+              <span className="text-xs text-foreground">{decodedSegments[idx]}</span>
             </Link>
           </li>
         ))}

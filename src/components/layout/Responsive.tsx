@@ -22,18 +22,18 @@ export default function ResponsiveSidebar() {
   return (
     <>
       {/* PC/태블릿: 항상 보이는 사이드 바 */}
-      <div className='w-fit hidden md:block'>
+      <div className="w-fit hidden md:block">
         <Sidebar />
       </div>
 
       {/* 모바일: 오버레이 사이드바 */}
       {sidebarOpen && (
-        <div className='fixed inset-0 z-40 flex md:hidden'>
+        <div className="fixed inset-0 z-40 flex md:hidden">
           {/* 오버레이 배경 */}
           <div
-            className='fixed inset-0 bg-black/40'
+            className="fixed inset-0 bg-black/40"
             onClick={() => setSidebarOpen(false)}
-            aria-label='Close sidebar'
+            aria-label="Close sidebar"
           />
           {/* 사이드바 패널 */}
           <div
@@ -43,13 +43,13 @@ export default function ResponsiveSidebar() {
           >
             {/* 닫기 버튼 */}
             <button
-              className='absolute top-4 right-4 hover:opacity-60 group'
+              className="absolute top-4 right-4 hover:opacity-60 group"
               onClick={() => setSidebarOpen(false)}
-              aria-label='Close Sidebar'
+              aria-label="Close Sidebar"
             >
-              <XIcon className='w-6 h-6 group-hover:stroke-muted-foreground group-hover:scale-110' />
+              <XIcon className="w-6 h-6 group-hover:stroke-muted-foreground group-hover:scale-110" />
             </button>
-            <Sidebar className='md:p-2 pt-4 rounded-none md:rounded-tl-lg' />
+            <Sidebar className="md:p-2 pt-4 rounded-none md:rounded-tl-lg" />
           </div>
         </div>
       )}
