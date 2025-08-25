@@ -1,4 +1,8 @@
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@radix-ui/react-collapsible';
 import { ChevronDown, Hash, Pin } from 'lucide-react';
 import { cn } from '@/lib/utils'; // 유틸리티 함수가 필요하다면 import
 import Link from 'next/link';
@@ -23,7 +27,12 @@ interface SideListProps {
   url?: string;
 }
 
-export const SideList: React.FC<SideListProps> = ({ isOpen, title, Icon, url }) => {
+export const SideList: React.FC<SideListProps> = ({
+  isOpen,
+  title,
+  Icon,
+  url,
+}) => {
   const pathname = usePathname();
 
   return (
@@ -41,7 +50,11 @@ export const SideList: React.FC<SideListProps> = ({ isOpen, title, Icon, url }) 
         // url === pathname ? "bg-sidebar-accent-foreground inset-shadow-sm inset-shadow-foreground rounded-none" : "",
       )}
     >
-      <Link href={url || '/'} passHref className={cn('flex-1 flex justify-start items-center')}>
+      <Link
+        href={url || '/'}
+        passHref
+        className={cn('flex-1 flex justify-start items-center')}
+      >
         {/* 아이콘 값이 없을 경우 기본 아이콘으로 folder 사용 */}
         <Icon
           className={cn(
@@ -86,7 +99,9 @@ export function SidebarNavCollapsible({
           ) : (
             <Hash className="w-4 h-4" />
           )}
-          {isOpen && <h3 className="text-xs font-bold text-muted-foreground">{title}</h3>}
+          {isOpen && (
+            <h3 className="text-xs font-bold text-muted-foreground">{title}</h3>
+          )}
         </div>
         <CollapsibleTrigger asChild>
           <button className="h-5 w-5 flex items-center">
@@ -105,7 +120,15 @@ export function SidebarNavCollapsible({
         <ul className="flex flex-col gap-2">
           {categories.map(({ title, url }) => {
             const Icon = categoryIconMap[title] || categoryIconMap.default;
-            return <SideList key={title} isOpen={isOpen} title={title} Icon={Icon} url={url} />;
+            return (
+              <SideList
+                key={title}
+                isOpen={isOpen}
+                title={title}
+                Icon={Icon}
+                url={url}
+              />
+            );
           })}
         </ul>
       </CollapsibleContent>

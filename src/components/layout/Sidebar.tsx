@@ -46,9 +46,15 @@ export default function Sidebar({ className }: SidebarProps) {
     >
       <div className="flex flex-col justify-between gap-5">
         <div className="flex justify-end">
-          <button className="mr-2 hidden md:block" onClick={() => setIsOpen(!isOpen)}>
+          <button
+            className="mr-2 hidden md:block"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <ArrowLeftIcon
-              className={cn(isOpen ? '' : '-rotate-180', 'transition duration-300 ease-in-out')}
+              className={cn(
+                isOpen ? '' : '-rotate-180',
+                'transition duration-300 ease-in-out',
+              )}
             />
           </button>
         </div>

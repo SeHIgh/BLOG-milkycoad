@@ -8,7 +8,12 @@ interface ErrorStateProps {
   iconColor: 'red' | 'yellow';
 }
 
-export default function ErrorState({ title, message, errorMessage, iconColor }: ErrorStateProps) {
+export default function ErrorState({
+  title,
+  message,
+  errorMessage,
+  iconColor,
+}: ErrorStateProps) {
   const iconClasses = {
     red: 'text-red-600 dark:text-red-400',
     yellow: 'text-yellow-600 dark:text-yellow-400',
@@ -40,8 +45,14 @@ export default function ErrorState({ title, message, errorMessage, iconColor }: 
               />
             </svg>
           </div>
-          <h2 className={`text-xl font-semibold mb-3 ${iconClasses[iconColor]}`}>{title}</h2>
-          <p className="text-muted-foreground mb-6 leading-relaxed">{errorMessage || message}</p>
+          <h2
+            className={`text-xl font-semibold mb-3 ${iconClasses[iconColor]}`}
+          >
+            {title}
+          </h2>
+          <p className="text-muted-foreground mb-6 leading-relaxed">
+            {errorMessage || message}
+          </p>
           <Link
             href="/posts"
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95"

@@ -65,11 +65,15 @@ export interface BlogPost {
 }
 
 // * 데이터베이스에서 모든 게시글 가져오기
-export async function getBlogPosts(publishedOnly: boolean = true): Promise<BlogPost[]> {
+export async function getBlogPosts(
+  publishedOnly: boolean = true,
+): Promise<BlogPost[]> {
   try {
     // 환경변수가 설정되지 않은 경우 빈 배열 반환
     if (!notion || !NOTION_DATABASE_ID) {
-      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.');
+      console.warn(
+        '⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.',
+      );
       return [];
     }
 
@@ -82,10 +86,15 @@ export async function getBlogPosts(publishedOnly: boolean = true): Promise<BlogP
     const blogPosts = response.results
       .filter((page): page is PageObjectResponse => 'properties' in page)
       .map(mapNotionPageToBlogPost)
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // 클라이언트에서 정렬
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ); // 클라이언트에서 정렬
 
     //* 발행된 포스트만 필터링
-    const filteredPosts = publishedOnly ? blogPosts.filter((post) => post.isPublished) : blogPosts;
+    const filteredPosts = publishedOnly
+      ? blogPosts.filter((post) => post.isPublished)
+      : blogPosts;
 
     return filteredPosts;
   } catch (error) {
@@ -126,7 +135,9 @@ export async function getBlogPost(pageId: string): Promise<BlogPost | null> {
 }
 
 // * slug로 게시글 가져오기
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getBlogPostBySlug(
+  slug: string,
+): Promise<BlogPost | null> {
   try {
     // 환경변수가 설정되지 않은 경우 null 반환
     if (!notion || !NOTION_DATABASE_ID) {
@@ -164,7 +175,9 @@ export async function getBlocksWithChildren(
 ): Promise<(BlockObjectResponse | PartialBlockObjectResponse)[]> {
   try {
     if (!notion) {
-      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.');
+      console.warn(
+        '⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.',
+      );
       return [];
     }
 
@@ -192,7 +205,10 @@ export async function getBlocksWithChildren(
               const children = await getBlocksWithChildren(block.id);
               return { ...block, children };
             } catch (error) {
-              console.warn(`⚠️ 블록 ${block.id}의 자식 블록을 가져오는 중 오류:`, error);
+              console.warn(
+                `⚠️ 블록 ${block.id}의 자식 블록을 가져오는 중 오류:`,
+                error,
+              );
               return block;
             }
           }
@@ -214,7 +230,9 @@ export async function getTableBlocks(
 ): Promise<(BlockObjectResponse | PartialBlockObjectResponse)[]> {
   try {
     if (!notion) {
-      console.warn('⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.');
+      console.warn(
+        '⚠️ Notion 설정이 완료되지 않았습니다. 빈 배열을 반환합니다.',
+      );
       return [];
     }
 
@@ -251,8 +269,10 @@ function mapNotionPageToBlogPost(page: PageObjectResponse): BlogPost {
   const coverImage = getFileUrl(getProperty(properties, 'thumbnailUrl'));
 
   // * 생성일/수정일
-  const createdAt = getDate(getProperty(properties, 'createdAt')) || page.created_time;
-  const lastEditedAt = getDate(getProperty(properties, 'updatedAt')) || page.last_edited_time;
+  const createdAt =
+    getDate(getProperty(properties, 'createdAt')) || page.created_time;
+  const lastEditedAt =
+    getDate(getProperty(properties, 'updatedAt')) || page.last_edited_time;
 
   return {
     id: page.id,

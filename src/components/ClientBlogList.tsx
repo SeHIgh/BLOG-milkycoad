@@ -66,7 +66,9 @@ interface ClientBlogListProps {
   publishedOnly?: boolean;
 }
 
-export default function ClientBlogList({ publishedOnly = true }: ClientBlogListProps) {
+export default function ClientBlogList({
+  publishedOnly = true,
+}: ClientBlogListProps) {
   // * 노션 DB로 부터 포스트 목록 가져오기
   const {
     data: posts,
@@ -107,7 +109,9 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
             ⚠️ 오류가 발생했습니다
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed text-lg">
-            {error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'}
+            {error instanceof Error
+              ? error.message
+              : '알 수 없는 오류가 발생했습니다.'}
           </p>
           <button
             onClick={() => refetch()}
@@ -147,7 +151,12 @@ export default function ClientBlogList({ publishedOnly = true }: ClientBlogListP
           </p>
           <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-200 dark:border-yellow-800 rounded-2xl p-8 text-left shadow-lg">
             <h3 className="font-bold text-yellow-800 dark:text-yellow-200 mb-6 flex items-center gap-3 text-xl">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

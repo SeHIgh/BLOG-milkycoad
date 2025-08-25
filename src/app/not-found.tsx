@@ -15,7 +15,11 @@ export default function NotFound() {
         <br />
         이동되었을 수 있습니다.
       </p>
-      <Button variant="secondary" onClick={() => router.push('/')} className="px-6 py-2 text-lg">
+      <Button
+        variant="secondary"
+        onClick={() => router.push('/')}
+        className="px-6 py-2 text-lg"
+      >
         홈으로 돌아가기
       </Button>
     </div>

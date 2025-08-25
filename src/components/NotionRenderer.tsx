@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   BlockObjectResponse,
@@ -12,8 +11,12 @@ type BlockWithChildren = BlockObjectResponse & {
 };
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
+import { axiosClient } from '@/lib/axiosClient';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneLight, oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {
+  oneLight,
+  oneDark,
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTheme } from 'next-themes';
 
 interface NotionRendererProps {
@@ -21,7 +24,11 @@ interface NotionRendererProps {
 }
 
 // 코드 블록 컴포넌트
-function CodeBlock({ block }: { block: BlockObjectResponse | PartialBlockObjectResponse }) {
+function CodeBlock({
+  block,
+}: {
+  block: BlockObjectResponse | PartialBlockObjectResponse;
+}) {
   const { resolvedTheme } = useTheme();
 
   if (!('type' in block) || block.type !== 'code') {
@@ -62,7 +69,11 @@ function CodeBlock({ block }: { block: BlockObjectResponse | PartialBlockObjectR
 }
 
 export default function NotionRenderer({ blocks }: NotionRendererProps) {
-  return <div className="prose prose-lg max-w-none dark:prose-invert">{renderBlocks(blocks)}</div>;
+  return (
+    <div className="prose prose-lg max-w-none dark:prose-invert">
+      {renderBlocks(blocks)}
+    </div>
+  );
 }
 
 // 목차 컴포넌트
@@ -78,13 +89,19 @@ function TableOfContents({
     const headings: (BlockObjectResponse | PartialBlockObjectResponse)[] = [];
 
     blocks.forEach((block) => {
-      if ('type' in block && ['heading_1', 'heading_2', 'heading_3'].includes(block.type)) {
+      if (
+        'type' in block &&
+        ['heading_1', 'heading_2', 'heading_3'].includes(block.type)
+      ) {
         headings.push(block);
       }
 
       // 자식 블록들도 검색
       const blockWithChildren = block as BlockWithChildren;
-      if (blockWithChildren.children && Array.isArray(blockWithChildren.children)) {
+      if (
+        blockWithChildren.children &&
+        Array.isArray(blockWithChildren.children)
+      ) {
         headings.push(...findAllHeadings(blockWithChildren.children));
       }
     });
@@ -97,7 +114,9 @@ function TableOfContents({
   if (headings.length === 0) {
     return (
       <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
-        <div className="text-blue-800 dark:text-blue-200 font-medium mb-2">목차</div>
+        <div className="text-blue-800 dark:text-blue-200 font-medium mb-2">
+          목차
+        </div>
         <div className="text-blue-600 dark:text-blue-300 text-sm">
           목차를 생성할 수 있는 헤딩이 없습니다.
         </div>
@@ -116,8 +135,9 @@ function TableOfContents({
 
           const headingBlock = heading as any;
           const headingText =
-            headingBlock[heading.type]?.rich_text?.map((text: any) => text.plain_text).join('') ||
-            '';
+            headingBlock[heading.type]?.rich_text
+              ?.map((text: any) => text.plain_text)
+              .join('') || '';
 
           return (
             <a
@@ -140,7 +160,9 @@ function TableOfContents({
   );
 }
 
-function renderBlocks(blocks: (BlockObjectResponse | PartialBlockObjectResponse)[]) {
+function renderBlocks(
+  blocks: (BlockObjectResponse | PartialBlockObjectResponse)[],
+) {
   const elements: React.ReactElement[] = [];
   let currentList: React.ReactElement[] = [];
   let currentListType: 'bulleted' | 'numbered' | null = null;
@@ -170,7 +192,9 @@ function renderBlocks(blocks: (BlockObjectResponse | PartialBlockObjectResponse)
         currentListType = listType;
       }
 
-      currentList.push(<RenderBlock key={block.id} block={block} allBlocks={blocks} />);
+      currentList.push(
+        <RenderBlock key={block.id} block={block} allBlocks={blocks} />,
+      );
     } else {
       // 리스트가 아닌 블록이 나오면 이전 리스트 완성
       if (currentList.length > 0) {
@@ -184,7 +208,9 @@ function renderBlocks(blocks: (BlockObjectResponse | PartialBlockObjectResponse)
         currentListType = null;
       }
 
-      elements.push(<RenderBlock key={block.id} block={block} allBlocks={blocks} />);
+      elements.push(
+        <RenderBlock key={block.id} block={block} allBlocks={blocks} />,
+      );
     }
   });
 
@@ -283,7 +309,9 @@ function RenderBlock({
             readOnly
             className="mt-1 w-4 h-4 text-primary border-border rounded focus:ring-primary"
           />
-          <span className={block.to_do.checked ? 'line-through opacity-70' : ''}>
+          <span
+            className={block.to_do.checked ? 'line-through opacity-70' : ''}
+          >
             <RichText text={block.to_do.rich_text} />
           </span>
         </div>
@@ -312,12 +340,14 @@ function RenderBlock({
           <RichText text={block.quote.rich_text} />
           {/* 자식 블록들 렌더링 */}
           {(block as BlockWithChildren).children && (
-            <div className="mt-2">{renderBlocks((block as BlockWithChildren).children!)}</div>
+            <div className="mt-2">
+              {renderBlocks((block as BlockWithChildren).children!)}
+            </div>
           )}
         </blockquote>
       );
 
-    case 'callout':
+    case 'callout': {
       let icon = '💡';
       if (block.callout.icon?.type === 'emoji') {
         icon = block.callout.icon.emoji;
@@ -354,17 +384,22 @@ function RenderBlock({
         'bg-yellow-50 dark:bg-yellow-950 border-yellow-400';
 
       return (
-        <div className={`flex gap-3 p-4 ${bgColor} mb-4 border-l-4 border-border`}>
+        <div
+          className={`flex gap-3 p-4 ${bgColor} mb-4 border-l-4 border-border`}
+        >
           <span className="text-xl flex-shrink-0">{icon}</span>
           <div className="flex-1">
             <RichText text={block.callout.rich_text} />
             {/* 자식 블록들 렌더링 */}
             {(block as BlockWithChildren).children && (
-              <div className="mt-2">{renderBlocks((block as BlockWithChildren).children!)}</div>
+              <div className="mt-2">
+                {renderBlocks((block as BlockWithChildren).children!)}
+              </div>
             )}
           </div>
         </div>
       );
+    }
 
     case 'divider':
       return <hr className="my-8 border border-border" />;
@@ -375,9 +410,11 @@ function RenderBlock({
     case 'table':
       return <TableBlock block={block} />;
 
-    case 'image':
+    case 'image': {
       const imageUrl =
-        block.image.type === 'external' ? block.image.external.url : block.image.file.url;
+        block.image.type === 'external'
+          ? block.image.external.url
+          : block.image.file.url;
       const caption =
         block.image.caption?.length > 0
           ? block.image.caption.map((text) => text.plain_text).join('')
@@ -402,10 +439,13 @@ function RenderBlock({
           )}
         </figure>
       );
+    }
 
-    case 'video':
+    case 'video': {
       const videoUrl =
-        block.video.type === 'external' ? block.video.external.url : block.video.file.url;
+        block.video.type === 'external'
+          ? block.video.external.url
+          : block.video.file.url;
       const videoCaption =
         block.video.caption?.length > 0
           ? block.video.caption.map((text) => text.plain_text).join('')
@@ -431,10 +471,13 @@ function RenderBlock({
           )}
         </figure>
       );
+    }
 
-    case 'file':
+    case 'file': {
       const fileUrl =
-        block.file.type === 'external' ? block.file.external.url : block.file.file.url;
+        block.file.type === 'external'
+          ? block.file.external.url
+          : block.file.file.url;
       const fileName =
         block.file.caption?.length > 0
           ? block.file.caption.map((text) => text.plain_text).join('')
@@ -449,7 +492,12 @@ function RenderBlock({
             className="flex items-center gap-3 text-primary hover:text-primary/80 transition-colors"
           >
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -462,7 +510,12 @@ function RenderBlock({
               <div className="font-medium">{fileName}</div>
               <div className="text-sm text-muted-foreground">파일 다운로드</div>
             </div>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -473,9 +526,13 @@ function RenderBlock({
           </a>
         </div>
       );
+    }
 
-    case 'pdf':
-      const pdfUrl = block.pdf.type === 'external' ? block.pdf.external.url : block.pdf.file.url;
+    case 'pdf': {
+      const pdfUrl =
+        block.pdf.type === 'external'
+          ? block.pdf.external.url
+          : block.pdf.file.url;
       const pdfCaption =
         block.pdf.caption?.length > 0
           ? block.pdf.caption.map((text) => text.plain_text).join('')
@@ -493,8 +550,9 @@ function RenderBlock({
           )}
         </div>
       );
+    }
 
-    case 'bookmark':
+    case 'bookmark': {
       return (
         <a
           href={block.bookmark.url}
@@ -510,18 +568,24 @@ function RenderBlock({
           )}
         </a>
       );
+    }
 
-    default:
+    default: {
       return (
         <div className="mb-4 p-3 border border-border/30 rounded-lg bg-muted/30 text-sm">
           지원하지 않는 블록 타입: {type}
         </div>
       );
+    }
   }
 }
 
 // 테이블 블록 컴포넌트
-function TableBlock({ block }: { block: BlockObjectResponse | PartialBlockObjectResponse }) {
+function TableBlock({
+  block,
+}: {
+  block: BlockObjectResponse | PartialBlockObjectResponse;
+}) {
   const [tableRows, setTableRows] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -530,14 +594,14 @@ function TableBlock({ block }: { block: BlockObjectResponse | PartialBlockObject
     async function loadTableData() {
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/blocks/${block.id}`);
-        if (!response.ok) {
-          throw new Error('테이블 데이터를 가져올 수 없습니다.');
-        }
-        const data = await response.json();
+        const { data } = await axiosClient.get(`/api/blocks/${block.id}`);
         setTableRows(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.');
+        setError(
+          err instanceof Error
+            ? err.message
+            : '알 수 없는 오류가 발생했습니다.',
+        );
       } finally {
         setIsLoading(false);
       }
@@ -610,16 +674,18 @@ function TableBlock({ block }: { block: BlockObjectResponse | PartialBlockObject
           <>
             <thead>
               <tr className="bg-primary/10 border-b-2 border-border">
-                {tableRows[0]?.table_row?.cells?.map((cell: any[], cellIndex: number) => (
-                  <th
-                    key={cellIndex}
-                    className="px-4 py-3 text-sm font-bold text-left border-r border-border last:border-r-0"
-                  >
-                    {cell.map((text: any, textIndex: number) => (
-                      <span key={textIndex}>{text.plain_text}</span>
-                    ))}
-                  </th>
-                ))}
+                {tableRows[0]?.table_row?.cells?.map(
+                  (cell: any[], cellIndex: number) => (
+                    <th
+                      key={cellIndex}
+                      className="px-4 py-3 text-sm font-bold text-left border-r border-border last:border-r-0"
+                    >
+                      {cell.map((text: any, textIndex: number) => (
+                        <span key={textIndex}>{text.plain_text}</span>
+                      ))}
+                    </th>
+                  ),
+                )}
               </tr>
             </thead>
             <tbody>
@@ -628,16 +694,18 @@ function TableBlock({ block }: { block: BlockObjectResponse | PartialBlockObject
                   key={rowIndex}
                   className="border-b border-border/50 last:border-b-0 hover:bg-card/30 transition-colors duration-200"
                 >
-                  {row.table_row?.cells?.map((cell: any[], cellIndex: number) => (
-                    <td
-                      key={cellIndex}
-                      className="px-4 py-3 text-sm border-r border-border/30 last:border-r-0"
-                    >
-                      {cell.map((text: any, textIndex: number) => (
-                        <span key={textIndex}>{text.plain_text}</span>
-                      ))}
-                    </td>
-                  ))}
+                  {row.table_row?.cells?.map(
+                    (cell: any[], cellIndex: number) => (
+                      <td
+                        key={cellIndex}
+                        className="px-4 py-3 text-sm border-r border-border/30 last:border-r-0"
+                      >
+                        {cell.map((text: any, textIndex: number) => (
+                          <span key={textIndex}>{text.plain_text}</span>
+                        ))}
+                      </td>
+                    ),
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -706,7 +774,8 @@ function RichText({
               italic && 'italic',
               strikethrough && 'line-through',
               underline && 'underline',
-              code && 'bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono',
+              code &&
+                'bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono',
               colorClass,
             ]
               .filter(Boolean)

@@ -126,18 +126,19 @@ export default function AboutPage() {
           &quot;그저 그렇지 않은 사람이 되자&quot;
         </div>
         <div className="text-center mb-4">
-          🚀 <strong>✦풀스택✧</strong> 개발자를 꿈꾸는 컴퓨터공학 전공 프론트엔드 개발자 입니다.
+          🚀 <strong>✦풀스택✧</strong> 개발자를 꿈꾸는 컴퓨터공학 전공
+          프론트엔드 개발자 입니다.
         </div>
         <ul className="list-disc list-inside space-y-2">
           <li>
-            &quot;그저 그렇지 않은 사람&quot; 으로 코드 한 줄, 디자인 하나에도 특별함을 담아내며{' '}
-            <br />
-            잊히지 않을 <strong>은하수</strong> 같은 경험을 제공하는 개발자로 성장하는 것이
-            목표입니다.
+            &quot;그저 그렇지 않은 사람&quot; 으로 코드 한 줄, 디자인 하나에도
+            특별함을 담아내며 <br />
+            잊히지 않을 <strong>은하수</strong> 같은 경험을 제공하는 개발자로
+            성장하는 것이 목표입니다.
           </li>
           <li>
-            데이터의 흐름과 감각적인 사용자 경험을 연결하며, 사람들에게 가치 있는 웹 서비스를 만들고
-            싶습니다.
+            데이터의 흐름과 감각적인 사용자 경험을 연결하며, 사람들에게 가치
+            있는 웹 서비스를 만들고 싶습니다.
           </li>
         </ul>
       </section>

@@ -7,7 +7,7 @@ export default function SidebarToggle() {
 
   return (
     <button
-      className="md:hidden block rounded-xl w-8 h-8 text-sm transition-colors flex items-center justify-center group"
+      className="md:hidden rounded-xl w-8 h-8 text-sm transition-colors flex items-center justify-center group"
       onClick={toggleSidebar}
       aria-label="Open Sidebar"
     >

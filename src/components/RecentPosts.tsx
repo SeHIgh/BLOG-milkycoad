@@ -84,7 +84,9 @@ export default function RecentPosts({ limit = 4 }: RecentPostsProps) {
   if (error || !posts || posts.length === 0) {
     return (
       <div className="text-center py-8">
-        <div className="text-muted-foreground">최근 포스트를 불러올 수 없습니다.</div>
+        <div className="text-muted-foreground">
+          최근 포스트를 불러올 수 없습니다.
+        </div>
       </div>
     );
   }

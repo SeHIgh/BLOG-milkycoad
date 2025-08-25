@@ -87,7 +87,9 @@ export default function BlogPostPage() {
       <header className="mb-8">
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
 
-        {post.summary && <p className="text-xl text-muted-foreground mb-4">{post.summary}</p>}
+        {post.summary && (
+          <p className="text-xl text-muted-foreground mb-4">{post.summary}</p>
+        )}
 
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
           <div className="flex items-center gap-1 text-foreground">
@@ -115,13 +117,15 @@ export default function BlogPostPage() {
                   if (isMainTag) {
                     // 메인 태그: TAG_COLOR.main_tags에서 색상 가져오기
                     const mainTagColor =
-                      TAG_COLOR.main_tags[tag.toLowerCase()] || TAG_COLOR.main_tags.default;
+                      TAG_COLOR.main_tags[tag.toLowerCase()] ||
+                      TAG_COLOR.main_tags.default;
                     tagStyle = {
                       backgroundColor: mainTagColor,
                       color: '#ffffff',
                       borderColor: mainTagColor,
                       textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1)',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1)',
                     };
                   } else if (isSubTag) {
                     // 서브 태그: TAG_COLOR.sub_tags에서 색상 가져오기
@@ -131,14 +135,17 @@ export default function BlogPostPage() {
                       color: '#1f2937',
                       borderColor: subTagColor,
                       textShadow: '0 1px 2px rgba(0,0,0,0.1)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
                     };
                   } else {
                     // 일반 태그: 기본 스타일
-                    tagClass += ' bg-secondary text-secondary-foreground border-secondary';
+                    tagClass +=
+                      ' bg-secondary text-secondary-foreground border-secondary';
                     tagStyle = {
                       textShadow: '0 1px 2px rgba(0,0,0,0.1)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
                     };
                   }
 

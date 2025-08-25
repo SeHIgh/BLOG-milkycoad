@@ -9,7 +9,10 @@ export async function GET(
     const { blockId } = await params;
 
     if (!blockId) {
-      return NextResponse.json({ error: '블록 ID가 필요합니다.' }, { status: 400 });
+      return NextResponse.json(
+        { error: '블록 ID가 필요합니다.' },
+        { status: 400 },
+      );
     }
 
     const blocks = await getTableBlocks(blockId);

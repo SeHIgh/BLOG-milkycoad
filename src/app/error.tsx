@@ -15,7 +15,11 @@ export default function Error() {
         <br />
         나중에 다시 시도해 주세요.
       </p>
-      <Button variant="secondary" onClick={() => router.push('/')} className="px-6 py-2 text-lg">
+      <Button
+        variant="secondary"
+        onClick={() => router.push('/')}
+        className="px-6 py-2 text-lg"
+      >
         홈으로 돌아가기
       </Button>
     </div>

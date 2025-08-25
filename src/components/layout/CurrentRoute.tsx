@@ -22,7 +22,8 @@ export default function CurrentRoute() {
   const getIcon = (seg: string) => {
     // 소문자 처리, 띄어쓰기 등 normalization 필요할 수 있음
     const key = seg.toLowerCase();
-    const Icon = pinnedIconMap[key] || tagIconMap[key] || pinnedIconMap['default'];
+    const Icon =
+      pinnedIconMap[key] || tagIconMap[key] || pinnedIconMap['default'];
     return <Icon className="w-4 h-4" />;
   };
 
@@ -38,7 +39,10 @@ export default function CurrentRoute() {
       <ul className="flex flex-row items-center gap-2">
         {/* 항상 홈 아이템 먼저 */}
         <li className="w-fit h-fit">
-          <Link href="/" className="flex flex-row items-center gap-1 hover:underline">
+          <Link
+            href="/"
+            className="flex flex-row items-center gap-1 hover:underline"
+          >
             <Home className="w-4 h-4" />
             <span className="text-xs text-foreground">home</span>
           </Link>
@@ -47,9 +51,14 @@ export default function CurrentRoute() {
         {segments.map((seg, idx) => (
           <li key={idx} className="flex flex-row items-center gap-2">
             <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            <Link href={getHref(idx)} className="flex flex-row items-center gap-1 hover:underline">
+            <Link
+              href={getHref(idx)}
+              className="flex flex-row items-center gap-1 hover:underline"
+            >
               {getIcon(seg)}
-              <span className="text-xs text-foreground">{decodedSegments[idx]}</span>
+              <span className="text-xs text-foreground">
+                {decodedSegments[idx]}
+              </span>
             </Link>
           </li>
         ))}

@@ -6,7 +6,13 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { Calendar, Clock } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { TAG_COLOR } from '@/lib/tags';
 import { CONTENTS_PATH } from '@/lib/contents';
@@ -17,7 +23,10 @@ interface BlogPostCardProps {
   variant?: 'default' | 'compact';
 }
 
-export default function BlogPostCard({ post, variant = 'default' }: BlogPostCardProps) {
+export default function BlogPostCard({
+  post,
+  variant = 'default',
+}: BlogPostCardProps) {
   const [imageError, setImageError] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
@@ -30,7 +39,10 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
   const tagPadding = isCompact ? 'px-1.5 py-0.5' : 'px-2.5 py-1';
 
   return (
-    <Link href={`/posts/${encodeURIComponent(post.slug)}`} className="block group">
+    <Link
+      href={`/posts/${encodeURIComponent(post.slug)}`}
+      className="block group"
+    >
       <Card className="h-full bg-card/30 py-0 gap-3 backdrop-blur-sm border-2 border-border shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02] overflow-hidden group-hover:bg-card/50 hover:border-primary/50">
         {/* 커버 이미지 */}
         <div className={cn('relative w-full overflow-hidden', imageHeight)}>
@@ -97,10 +109,16 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
             {/* 메타 정보 */}
             <div className="flex items-center justify-between">
               <div
-                className={cn('flex items-center gap-2 bg-muted/50 px-2 py-1 rounded', metaSize)}
+                className={cn(
+                  'flex items-center gap-2 bg-muted/50 px-2 py-1 rounded',
+                  metaSize,
+                )}
               >
                 <Calendar className="w-3 h-3 text-primary" />
-                <time dateTime={post.lastEditedAt} className="text-muted-foreground font-medium">
+                <time
+                  dateTime={post.lastEditedAt}
+                  className="text-muted-foreground font-medium"
+                >
                   {format(new Date(post.lastEditedAt), 'yy년 M월 d일', {
                     locale: ko,
                   })}
@@ -123,9 +141,13 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
                           tagPadding,
                         )}
                         style={{
-                          backgroundColor: TAG_COLOR.main_tags[tag] ?? TAG_COLOR.main_tags.default,
+                          backgroundColor:
+                            TAG_COLOR.main_tags[tag] ??
+                            TAG_COLOR.main_tags.default,
                           color: '#ffffff',
-                          borderColor: TAG_COLOR.main_tags[tag] ?? TAG_COLOR.main_tags.default,
+                          borderColor:
+                            TAG_COLOR.main_tags[tag] ??
+                            TAG_COLOR.main_tags.default,
                         }}
                       >
                         #{tag.toUpperCase()}
@@ -157,9 +179,13 @@ export default function BlogPostCard({ post, variant = 'default' }: BlogPostCard
                           tagPadding,
                         )}
                         style={{
-                          backgroundColor: TAG_COLOR.sub_tags[tag] ?? TAG_COLOR.sub_tags.default,
+                          backgroundColor:
+                            TAG_COLOR.sub_tags[tag] ??
+                            TAG_COLOR.sub_tags.default,
                           color: '#1f2937',
-                          borderColor: TAG_COLOR.sub_tags[tag] ?? TAG_COLOR.sub_tags.default,
+                          borderColor:
+                            TAG_COLOR.sub_tags[tag] ??
+                            TAG_COLOR.sub_tags.default,
                         }}
                       >
                         #{tag.toUpperCase()}

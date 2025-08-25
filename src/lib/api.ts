@@ -1,4 +1,5 @@
 import { BlogPost } from './notion';
+import { axiosClient } from './axiosClient';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -17,23 +18,17 @@ async function apiCall<T>(url: string): Promise<T> {
     );
   }
 
-  const response = await fetch(url);
+  const { data } = await axiosClient.get<ApiResponse<T>>(url);
 
-  if (!response.ok) {
-    throw new Error(`API 호출 실패: ${response.status}`);
+  if (!data.success) {
+    throw new Error(data.error || '알 수 없는 오류가 발생했습니다.');
   }
 
-  const result: ApiResponse<T> = await response.json();
-
-  if (!result.success) {
-    throw new Error(result.error || '알 수 없는 오류가 발생했습니다.');
-  }
-
-  if (!result.data) {
+  if (!data.data) {
     throw new Error('데이터가 없습니다.');
   }
 
-  return result.data;
+  return data.data;
 }
 
 // 클라이언트 전용 API 함수들
@@ -54,6 +49,7 @@ export const clientApi = {
 
 // React Query 키 생성 함수들
 export const apiKeys = {
-  blogPosts: (publishedOnly: boolean = true) => ['blog-posts', publishedOnly] as const,
+  blogPosts: (publishedOnly: boolean = true) =>
+    ['blog-posts', publishedOnly] as const,
   blogPost: (slug: string) => ['blog-post', slug] as const,
 };

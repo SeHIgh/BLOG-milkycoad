@@ -67,7 +67,9 @@ export default function PostsPage() {
       <div className="mb-8 py-4">
         <div className="flex gap-3 items-center mb-4">
           <pinnedIconMap.posts className="w-8 h-8 text-primary drop-shadow-sm" />
-          <h1 className="text-3xl font-bold text-foreground drop-shadow-sm">POSTS</h1>
+          <h1 className="text-3xl font-bold text-foreground drop-shadow-sm">
+            POSTS
+          </h1>
         </div>
         <p className="text-muted-foreground ml-11 text-lg drop-shadow-sm">
           개발과 일상에 대한 생각들을 기록합니다.
