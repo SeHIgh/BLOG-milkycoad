@@ -8,16 +8,13 @@ import {
   Hash,
   GalleryVerticalEnd,
   Circle,
-} from "lucide-react";
+} from 'lucide-react';
 
 // 카테고리명 → 아이콘 컴포넌트 매핑
-export const pinnedIconMap: Record<
-  string,
-  React.ComponentType<{ className?: string }>
-> = {
+export const pinnedIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   home: Home,
   posts: BookMarked,
-  "dev.log": Code,
+  'dev.log': Code,
   tags: Hash,
   about: User,
   projects: FolderGit2,
@@ -25,10 +22,7 @@ export const pinnedIconMap: Record<
 };
 
 // 카테고리명 → 아이콘 컴포넌트 매핑
-export const tagIconMap: Record<
-  string,
-  React.ComponentType<{ className?: string }>
-> = {
+export const tagIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   all: GalleryVerticalEnd,
   cs: (props) => <Circle fill="#8ecae6" {...props} />, // 파랑
   language: (props) => <Circle fill="#ffb703" {...props} />, // 노랑

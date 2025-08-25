@@ -1,4 +1,3 @@
-// src/pages/about.tsx
 import React from 'react';
 import Image from 'next/image';
 
@@ -88,32 +87,32 @@ const contacts = [
 
 export default function AboutPage() {
   return (
-    <div className='w-full mx-auto p-4 h-full overflow-y-scroll'>
+    <div className="w-full mx-auto p-4 h-full overflow-y-scroll">
       <Image
-        className='w-full mb-6 border-2 border-foreground rounded-lg'
-        src='/SeHi_Banner_Blue_BG.png'
-        alt='SeHi_Banner_Blue_BG'
+        className="w-full mb-6 border-2 border-foreground rounded-lg"
+        src="/SeHi_Banner_Blue_BG.png"
+        alt="SeHi_Banner_Blue_BG"
         width={1200}
         height={400}
         priority
       />
-      <h1 className='text-4xl font-bold text-center mb-2'>Se Hi :)</h1>
-      <h3 className='text-xl font-semibold text-center mb-4'>
+      <h1 className="text-4xl font-bold text-center mb-2">Se Hi :)</h1>
+      <h3 className="text-xl font-semibold text-center mb-4">
         💫 흐르는 정보와 아름다운 인터페이스를 은하수처럼 잇는 개발자
       </h3>
 
-      <div className='flex flex-col md:flex-row justify-center items-center gap-4 my-6'>
-        <div className='border-2 border-foreground rounded-lg overflow-hidden h-fit w-fit'>
+      <div className="flex flex-col md:flex-row justify-center items-center gap-4 my-6">
+        <div className="border-2 border-foreground rounded-lg overflow-hidden h-fit w-fit">
           <Image
-            src='https://github-readme-stats.vercel.app/api?username=SeHIgh&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc'
+            src="https://github-readme-stats.vercel.app/api?username=SeHIgh&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc"
             alt="SeHIgh's GitHub Stats"
             width={495}
             height={180}
           />
         </div>
-        <div className='border-2 border-foreground rounded-lg overflow-hidden h-fit w-fit'>
+        <div className="border-2 border-foreground rounded-lg overflow-hidden h-fit w-fit">
           <Image
-            src='https://github-readme-stats.vercel.app/api/top-langs?username=SeHIgh&layout=compact&langs_count=8&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc'
+            src="https://github-readme-stats.vercel.app/api/top-langs?username=SeHIgh&layout=compact&langs_count=8&show_icons=true&theme=holi&locale=kr&hide_border=true&bg_color=C9D9E7&text_color=5580A1&title_color=6ca2cc&icon_color=6ca2cc"
             alt="SeHIgh's Top Langs"
             width={350}
             height={180}
@@ -121,15 +120,15 @@ export default function AboutPage() {
         </div>
       </div>
       <hr />
-      <section className='my-8'>
-        <h2 className='text-2xl font-bold mb-2'>🎯 목표</h2>
-        <div className='text-center mb-2 font-semibold text-lg'>
+      <section className="my-8">
+        <h2 className="text-2xl font-bold mb-2">🎯 목표</h2>
+        <div className="text-center mb-2 font-semibold text-lg">
           &quot;그저 그렇지 않은 사람이 되자&quot;
         </div>
-        <div className='text-center mb-4'>
+        <div className="text-center mb-4">
           🚀 <strong>✦풀스택✧</strong> 개발자를 꿈꾸는 컴퓨터공학 전공 프론트엔드 개발자 입니다.
         </div>
-        <ul className='list-disc list-inside space-y-2'>
+        <ul className="list-disc list-inside space-y-2">
           <li>
             &quot;그저 그렇지 않은 사람&quot; 으로 코드 한 줄, 디자인 하나에도 특별함을 담아내며{' '}
             <br />
@@ -143,19 +142,19 @@ export default function AboutPage() {
         </ul>
       </section>
       <hr />
-      <section className='my-8'>
-        <h2 className='text-2xl font-bold mb-4'>🛠️ 기술 스택</h2>
-        <div className='space-y-4'>
+      <section className="my-8">
+        <h2 className="text-2xl font-bold mb-4">🛠️ 기술 스택</h2>
+        <div className="space-y-4">
           {techStack.map((stack) => (
             <div key={stack.category}>
-              <div className='font-semibold mb-1'>{stack.category}</div>
-              <div className='flex flex-wrap gap-2'>
+              <div className="font-semibold mb-1">{stack.category}</div>
+              <div className="flex flex-wrap gap-2">
                 {stack.items.map((item) => (
                   <span
                     key={item.name}
                     className={`inline-flex items-center px-3 py-1 rounded-md text-white font-semibold text-sm ${item.color}`}
                   >
-                    <span className='mr-1'>
+                    <span className="mr-1">
                       {/* <img
                                                 src={`https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${item.logo}.svg`}
                                                 alt={item.name}
@@ -175,15 +174,15 @@ export default function AboutPage() {
         </div>
       </section>
       <hr />
-      <section className='my-8'>
-        <h2 className='text-2xl font-bold mb-4'>☎️ 연락처</h2>
-        <div className='flex gap-3'>
+      <section className="my-8">
+        <h2 className="text-2xl font-bold mb-4">☎️ 연락처</h2>
+        <div className="flex gap-3">
           {contacts.map((contact) => (
             <a
               key={contact.name}
               href={contact.url}
-              target='_blank'
-              rel='noopener noreferrer'
+              target="_blank"
+              rel="noopener noreferrer"
               className={`inline-flex items-center px-3 py-1 rounded-md text-white font-semibold ${contact.color} hover:opacity-80 transition`}
             >
               {/* <img

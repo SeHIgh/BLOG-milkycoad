@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { ArrowLeftIcon } from "lucide-react";
-import { useState } from "react";
-import { pinnedIconMap, tagIconMap } from "../IconMap";
-import { SidebarNavCollapsible } from "../ui/customCollapsible";
+import { cn } from '@/lib/utils';
+import { ArrowLeftIcon } from 'lucide-react';
+import { useState } from 'react';
+import { pinnedIconMap, tagIconMap } from '../IconMap';
+import { SidebarNavCollapsible } from '../ui/customCollapsible';
 
 interface SidebarProps {
   className?: string;
@@ -16,45 +16,39 @@ export default function Sidebar({ className }: SidebarProps) {
   const [tagsIsOpen, setTagsIsOpen] = useState(true);
 
   const pinnedList = [
-    { title: "home", url: "/" },
-    { title: "about", url: "/about" },
-    { title: "posts", url: "/posts" },
-    { title: "dev.log", url: "/dev.log" },
-    { title: "projects", url: "/projects" },
+    { title: 'home', url: '/' },
+    { title: 'about', url: '/about' },
+    { title: 'posts', url: '/posts' },
+    { title: 'dev.log', url: '/dev.log' },
+    { title: 'projects', url: '/projects' },
   ];
 
   const tagsList = [
-    { title: "all", url: "/tags" },
-    { title: "cs", url: "/tags/cs" },
-    { title: "language", url: "/tags/language" },
-    { title: "algorithm", url: "/tags/algorithm" },
-    { title: "frontend", url: "/tags/frontend" },
-    { title: "backend", url: "/tags/backend" },
-    { title: "review", url: "/tags/review" },
+    { title: 'all', url: '/tags' },
+    { title: 'cs', url: '/tags/cs' },
+    { title: 'language', url: '/tags/language' },
+    { title: 'algorithm', url: '/tags/algorithm' },
+    { title: 'frontend', url: '/tags/frontend' },
+    { title: 'backend', url: '/tags/backend' },
+    { title: 'review', url: '/tags/review' },
   ];
 
   return (
     <aside
       className={cn(
-        "p-2 bg-background transition-[width] duration-300 ease-in-out overflow-x-hidden overflow-y-auto",
-        isOpen ? "w-48 md:w-42" : "w-14",
-        "flex flex-col justify-between h-full",
+        'p-2 bg-background transition-[width] duration-300 ease-in-out overflow-x-hidden overflow-y-auto',
+        isOpen ? 'w-48 md:w-42' : 'w-14',
+        'flex flex-col justify-between h-full',
         // "border-4 border-border rounded-s-lg",
-        "inset-ring-4 inset-ring-border md:rounded-tl-lg",
-        className
+        'inset-ring-4 inset-ring-border md:rounded-tl-lg',
+        className,
       )}
     >
       <div className="flex flex-col justify-between gap-5">
         <div className="flex justify-end">
-          <button
-            className="mr-2 hidden md:block"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <button className="mr-2 hidden md:block" onClick={() => setIsOpen(!isOpen)}>
             <ArrowLeftIcon
-              className={cn(
-                isOpen ? "" : "-rotate-180",
-                "transition duration-300 ease-in-out"
-              )}
+              className={cn(isOpen ? '' : '-rotate-180', 'transition duration-300 ease-in-out')}
             />
           </button>
         </div>
