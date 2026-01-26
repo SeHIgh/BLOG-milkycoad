@@ -75,6 +75,9 @@ importers:
       '@eslint/js':
         specifier: ^9.39.2
         version: 9.39.2
+dev dependencies      '@next/eslint-plugin-next':
+        specifier: ^15.5.9
+        version: 15.5.9
       '@tailwindcss/postcss':
         specifier: ^4.1.18
         version: 4.1.18
