@@ -48,10 +48,10 @@ export default function BlogPostPage() {
   if (error) {
     return (
       <ErrorState
-        title='포스트를 불러올 수 없습니다'
-        message='알 수 없는 오류가 발생했습니다.'
+        title="포스트를 불러올 수 없습니다"
+        message="알 수 없는 오류가 발생했습니다."
         errorMessage={error instanceof Error ? error.message : undefined}
-        iconColor='red'
+        iconColor="red"
       />
     );
   }
@@ -60,22 +60,22 @@ export default function BlogPostPage() {
   if (!post) {
     return (
       <ErrorState
-        title='포스트를 찾을 수 없습니다'
-        message='요청하신 블로그 포스트가 존재하지 않습니다.'
-        iconColor='yellow'
+        title="포스트를 찾을 수 없습니다"
+        message="요청하신 블로그 포스트가 존재하지 않습니다."
+        iconColor="yellow"
       />
     );
   }
 
   return (
-    <article className='container mx-auto px-4 py-8 max-w-4xl'>
+    <article className="container mx-auto px-4 py-8 max-w-4xl">
       {/* 뒤로가기 버튼 */}
-      <div className='mb-6'>
+      <div className="mb-6">
         <Link
-          href='/posts'
-          className='inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors'
+          href="/posts"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
         >
-          <ArrowLeft className='w-4 h-4' />
+          <ArrowLeft className="w-4 h-4" />
           블로그로 돌아가기
         </Link>
       </div>
@@ -84,15 +84,17 @@ export default function BlogPostPage() {
       {post.coverImage && <CoverImage src={post.coverImage} alt={post.title} />}
 
       {/* 메타 정보 */}
-      <header className='mb-8'>
-        <h1 className='text-4xl font-bold mb-4'>{post.title}</h1>
+      <header className="mb-8">
+        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
 
-        {post.summary && <p className='text-xl text-muted-foreground mb-4'>{post.summary}</p>}
+        {post.summary && (
+          <p className="text-xl text-muted-foreground mb-4">{post.summary}</p>
+        )}
 
-        <div className='flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6'>
-          <div className='flex items-center gap-1 text-foreground'>
-            <Calendar className='w-4 h-4 text-primary' />
-            <time dateTime={post.createdAt} className='text-foreground'>
+        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+          <div className="flex items-center gap-1 text-foreground">
+            <Calendar className="w-4 h-4 text-primary" />
+            <time dateTime={post.createdAt} className="text-foreground">
               {format(new Date(post.createdAt), 'yyyy년 MM월 dd일', {
                 locale: ko,
               })}
@@ -100,9 +102,9 @@ export default function BlogPostPage() {
           </div>
 
           {post.tags && post.tags.length > 0 && (
-            <div className='flex items-center gap-2'>
-              <Tag className='w-4 h-4 text-primary' />
-              <div className='flex gap-2 flex-wrap'>
+            <div className="flex items-center gap-2">
+              <Tag className="w-4 h-4 text-primary" />
+              <div className="flex gap-2 flex-wrap">
                 {post.tags.map((tag) => {
                   // 메인 태그와 서브 태그 구분
                   const isMainTag = post.mainTags?.includes(tag);
@@ -115,13 +117,15 @@ export default function BlogPostPage() {
                   if (isMainTag) {
                     // 메인 태그: TAG_COLOR.main_tags에서 색상 가져오기
                     const mainTagColor =
-                      TAG_COLOR.main_tags[tag.toLowerCase()] || TAG_COLOR.main_tags.default;
+                      TAG_COLOR.main_tags[tag.toLowerCase()] ||
+                      TAG_COLOR.main_tags.default;
                     tagStyle = {
                       backgroundColor: mainTagColor,
                       color: '#ffffff',
                       borderColor: mainTagColor,
                       textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1)',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1)',
                     };
                   } else if (isSubTag) {
                     // 서브 태그: TAG_COLOR.sub_tags에서 색상 가져오기
@@ -131,14 +135,17 @@ export default function BlogPostPage() {
                       color: '#1f2937',
                       borderColor: subTagColor,
                       textShadow: '0 1px 2px rgba(0,0,0,0.1)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
                     };
                   } else {
                     // 일반 태그: 기본 스타일
-                    tagClass += ' bg-secondary text-secondary-foreground border-secondary';
+                    tagClass +=
+                      ' bg-secondary text-secondary-foreground border-secondary';
                     tagStyle = {
                       textShadow: '0 1px 2px rgba(0,0,0,0.1)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.1)',
                     };
                   }
 
@@ -153,18 +160,18 @@ export default function BlogPostPage() {
           )}
         </div>
 
-        <hr className='border-border' />
+        <hr className="border-border" />
       </header>
 
       {/* 본문 내용 */}
-      <div className='prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-pre:text-foreground prose-blockquote:text-foreground prose-li:text-foreground'>
+      <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-pre:text-foreground prose-blockquote:text-foreground prose-li:text-foreground">
         {post.content && <NotionRenderer blocks={post.content} />}
       </div>
 
       {/* 푸터 */}
-      <footer className='mt-12 pt-8 border-t border-border'>
-        <div className='flex justify-between items-center'>
-          <p className='text-sm text-muted-foreground'>
+      <footer className="mt-12 pt-8 border-t border-border">
+        <div className="flex justify-between items-center">
+          <p className="text-sm text-muted-foreground">
             마지막 수정:{' '}
             {format(new Date(post.lastEditedAt), 'yyyy년 MM월 dd일', {
               locale: ko,
@@ -172,8 +179,8 @@ export default function BlogPostPage() {
           </p>
 
           <Link
-            href='/posts'
-            className='text-sm text-primary hover:text-primary/80 hover:underline transition-colors'
+            href="/posts"
+            className="text-sm text-primary hover:text-primary/80 hover:underline transition-colors"
           >
             더 많은 글 보기 →
           </Link>

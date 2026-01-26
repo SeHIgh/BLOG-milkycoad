@@ -1,0 +1,3 @@
+# pnpm store (Vercel 빌드에서 제외)
+.pnpm-store
+**/.pnpm-store

@@ -6,7 +6,9 @@ interface BlogPostLayoutProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: BlogPostLayoutProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: BlogPostLayoutProps): Promise<Metadata> {
   const { slug } = await params;
 
   // slug 디코딩

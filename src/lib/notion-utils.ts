@@ -33,11 +33,16 @@ export function generateSlugFromTitle(title: string): string {
 
 // Files 속성에서 첫 번째 파일 URL 추출
 export function getFileUrl(property: unknown): string | undefined {
-  if (!property || typeof property !== 'object' || property === null) return undefined;
+  if (!property || typeof property !== 'object' || property === null)
+    return undefined;
 
   const prop = property as Record<string, unknown>;
 
-  if (prop.type === 'files' && Array.isArray(prop.files) && prop.files.length > 0) {
+  if (
+    prop.type === 'files' &&
+    Array.isArray(prop.files) &&
+    prop.files.length > 0
+  ) {
     const firstFile = prop.files[0] as Record<string, unknown>;
 
     if (firstFile.type === 'external' && firstFile.external) {
@@ -61,11 +66,19 @@ export function getPlainText(property: unknown): string {
   const prop = property as Record<string, unknown>;
 
   if (prop.type === 'title' && prop.title && Array.isArray(prop.title)) {
-    return prop.title.map((text: Record<string, unknown>) => text.plain_text).join('');
+    return prop.title
+      .map((text: Record<string, unknown>) => text.plain_text)
+      .join('');
   }
 
-  if (prop.type === 'rich_text' && prop.rich_text && Array.isArray(prop.rich_text)) {
-    return prop.rich_text.map((text: Record<string, unknown>) => text.plain_text).join('');
+  if (
+    prop.type === 'rich_text' &&
+    prop.rich_text &&
+    Array.isArray(prop.rich_text)
+  ) {
+    return prop.rich_text
+      .map((text: Record<string, unknown>) => text.plain_text)
+      .join('');
   }
 
   return '';
@@ -77,13 +90,17 @@ export function getMultiSelect(property: unknown): string[] {
 
   const prop = property as Record<string, unknown>;
 
-  if (prop.type !== 'multi_select' || !Array.isArray(prop.multi_select)) return [];
-  return prop.multi_select.map((option: Record<string, unknown>) => option.name as string);
+  if (prop.type !== 'multi_select' || !Array.isArray(prop.multi_select))
+    return [];
+  return prop.multi_select.map(
+    (option: Record<string, unknown>) => option.name as string,
+  );
 }
 
 // Checkbox 추출 함수
 export function getCheckbox(property: unknown): boolean {
-  if (!property || typeof property !== 'object' || property === null) return false;
+  if (!property || typeof property !== 'object' || property === null)
+    return false;
 
   const prop = property as Record<string, unknown>;
 
@@ -93,7 +110,8 @@ export function getCheckbox(property: unknown): boolean {
 
 // 날짜 추출 함수
 export function getDate(property: unknown): string | undefined {
-  if (!property || typeof property !== 'object' || property === null) return undefined;
+  if (!property || typeof property !== 'object' || property === null)
+    return undefined;
 
   const prop = property as Record<string, unknown>;
 

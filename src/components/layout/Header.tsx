@@ -15,27 +15,27 @@ export default function Header() {
         'inset-ring-4 inset-ring-border rounded-t-lg md:rounded-tr-lg md:rounded-tl-none',
       )}
     >
-      <div className='flex flex-row items-center gap-2'>
-        <div className='flex flex-row items-center gap-2'>
+      <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2">
           <Image
-            src='/SeHi_Profile_Blue_BG_2x.png'
+            src="/SeHi_Profile_Blue_BG_2x.png"
             width={32}
             height={32}
-            className='rounded-lg border-2 border-foreground'
-            alt='profile_img'
+            className="rounded-lg border-2 border-foreground"
+            alt="profile_img"
           />
           <h3>SeHi</h3>
         </div>
 
-        <p className='truncate block sm:hidden'>: 💫</p>
-        <p className='truncate hidden sm:block lg:hidden'>
+        <p className="truncate block sm:hidden">: 💫</p>
+        <p className="truncate hidden sm:block lg:hidden">
           : &quot;그저 그렇지 않은 사람이 되자.&quot;
         </p>
-        <p className='truncate hidden lg:block'>
+        <p className="truncate hidden lg:block">
           : 💫 흐르는 정보와 아름다운 인터페이스를 은하수 처럼 잇는 개발자
         </p>
       </div>
-      <div className='flex flex-row gap-2'>
+      <div className="flex flex-row gap-2">
         {/* 모바일 : 사이드바 토글 버튼 */}
         <SidebarToggle />
         <ThemeToggle />

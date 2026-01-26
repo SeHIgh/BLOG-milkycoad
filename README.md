@@ -17,12 +17,10 @@ NOTION_DATABASE_ID=your_notion_database_id_here
 ### Notion 설정 방법
 
 1. **Notion Integration 생성**:
-
    - [Notion Developers](https://developers.notion.com/)에서 새 integration 생성
    - Integration Token 복사
 
 2. **Database 설정**:
-
    - Notion에서 블로그 포스트용 데이터베이스 생성
    - Database ID 복사 (URL에서 확인 가능)
    - Integration을 데이터베이스에 연결

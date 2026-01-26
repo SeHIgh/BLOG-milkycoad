@@ -1,13 +1,13 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface SidebarState {
-    sidebarOpen: boolean;
-    setSidebarOpen: (open: boolean) => void;
-    toggleSidebar: () => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
+  toggleSidebar: () => void;
 }
 
 export const useSidebarStore = create<SidebarState>((set) => ({
-    sidebarOpen: false,
-    setSidebarOpen: (open) => set({ sidebarOpen: open }),
-    toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+  sidebarOpen: false,
+  setSidebarOpen: (open) => set({ sidebarOpen: open }),
+  toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
 }));

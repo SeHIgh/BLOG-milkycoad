@@ -18,19 +18,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko' suppressHydrationWarning>
-      <body className='min-h-dvh max-h-dvh w-full flex flex-col justify-center p-1 font-galmuri9 antialiased overflow-x-hidden bg-background'>
+    <html lang="ko" suppressHydrationWarning>
+      <body className="min-h-dvh max-h-dvh w-full flex flex-col justify-center p-1 font-galmuri9 antialiased overflow-x-hidden bg-background">
         <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
+          attribute="class"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <ClientLayout>
             {/* (임시) border-4 */}
-            <main className='w-full dark:text-invert bg-foreground border-4 border-foreground rounded-t-xl overflow-auto flex flex-row justify-between gap-1 flex-1'>
+            <main className="w-full dark:text-invert bg-foreground border-4 border-foreground rounded-t-xl overflow-auto flex flex-row justify-between gap-1 flex-1">
               <ResponsiveSidebar />
-              <section className='flex flex-col flex-1 gap-1 overflow-hidden'>
+              <section className="flex flex-col flex-1 gap-1 overflow-hidden">
                 <Header />
                 {/* Rendering 될 내용 */}
                 <div

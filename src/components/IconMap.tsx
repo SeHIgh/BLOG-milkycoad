@@ -8,7 +8,7 @@ import {
   Hash,
   GalleryVerticalEnd,
   Circle,
-} from "lucide-react";
+} from 'lucide-react';
 
 // 카테고리명 → 아이콘 컴포넌트 매핑
 export const pinnedIconMap: Record<
@@ -17,7 +17,7 @@ export const pinnedIconMap: Record<
 > = {
   home: Home,
   posts: BookMarked,
-  "dev.log": Code,
+  'dev.log': Code,
   tags: Hash,
   about: User,
   projects: FolderGit2,
