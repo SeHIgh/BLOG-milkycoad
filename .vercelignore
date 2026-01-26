@@ -1,0 +1,19 @@
+# pnpm store
+.pnpm-store
+**/.pnpm-store
+
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+dist
+build
+
+# Cache
+.cache
+.tmp
+
+# Logs
+*.log
