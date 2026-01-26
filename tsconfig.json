@@ -30,5 +30,5 @@
     "src/lib/notion.js",
     "src/types/**/*.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".pnpm-store", "**/.pnpm-store/**"]
 }
