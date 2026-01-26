@@ -7,29 +7,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  webpack: (config, { isServer }) => {
-    // .pnpm-store를 빌드에서 제외
-    config.watchOptions = {
-      ...config.watchOptions,
-      ignored: [
-        ...(Array.isArray(config.watchOptions?.ignored)
-          ? config.watchOptions.ignored
-          : [config.watchOptions?.ignored].filter(Boolean)),
-        '**/.pnpm-store/**',
-        '**/node_modules/.pnpm/**',
-      ],
-    };
-
-    // .pnpm-store 파일을 모듈로 해석하지 않도록 설정
-    config.resolve = {
-      ...config.resolve,
-      alias: {
-        ...config.resolve?.alias,
-      },
-    };
-
-    return config;
-  },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
